@@ -1,7 +1,8 @@
 // marry.js
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, Navigator, ART} from 'react-native';
+import ReactNative, { View, StyleSheet, Text, Navigator } from 'react-native';
 
+const ReactNativeART = ReactNative.ART;
 const {
     Group,
     Shape,
@@ -9,11 +10,13 @@ const {
     Surface,
     Transform,
     Rectangle,
-} = ART;
+} = ReactNativeART;
+
+
 
 import Home from './tabs/Home';
 
-import TabNavigator from 'react-native';
+import TabNavigator from 'react-native-tab-navigator';
 const TabNavigatorItem = TabNavigator.Item;
 
 import Logo from './svg/Logo';
@@ -56,23 +59,9 @@ export default class Marry extends Component {
 
 	// TODO: 使用 Navigator
   _renderNavigatorContent = (routeId='', component=Home)=> {
-    // // 错误
-    // var com = ({component}: ReactClass<any>);// 错误
+
 
     return (
-      // <Navigator
-      //   style={styles.container}
-      //   initialRoute={{name:{title}, component:{component}, index:{index}, }}
-      //   renderScene={(route, navigator)=>
-      //     <Home
-      //       navigator={toute.component}
-      //       >
-      //
-      //     </Home>
-      //   }
-      //   />
-
-
       <Navigator
         style={styles.container}
         initialRoute={{ id: routeId, component: component }}
@@ -121,6 +110,7 @@ export default class Marry extends Component {
         </Group>
       </Surface>
     );
+    // return (<Image />);
   }
 
 	// 渲染/设置 tabItem
@@ -152,16 +142,20 @@ export default class Marry extends Component {
 		return (
       <TabNavigator ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
         {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     this._renderNavigatorContent(homeTabTag, Home))}
-
+        {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    this._renderNavigatorContent(albumTabTag, Home))}
+        {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), this._renderNavigatorContent(merchantTabTag, Home))}
       </TabNavigator>
 		);
+    // return (<View />);
+
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
+	container:{
+    flex:1,
+  },
+  selectedTitleStyle:{
+    color:'#ff5942',
+  },
 });
