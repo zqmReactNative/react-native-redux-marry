@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
+import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
+import Logo from '../svg/Logo';
 import Channels from '../components/Channels';
 export default class Home extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Channels navigator={this.props.navigator}/>
+        <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉武汉</Text>)} titleView={()=><Logo/>}/>
+        <Channels style={{ backgroundColor: 'white'}} navigator={this.props.navigator}/>
 
         <View style={{flexDirection: 'row'}}>
           <FaceIcon faceType={6}/>
