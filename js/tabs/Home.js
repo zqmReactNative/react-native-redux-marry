@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-import SVGButton from '../svg/SVGButton';
 import FaceIcon from '../svg/FaceIcon';
 
 export default class Home extends Component {
@@ -27,7 +26,6 @@ export default class Home extends Component {
           <FaceIcon faceType={11}/>
         </View>
 
-        <SVGButton />
 
       </View>
     );
