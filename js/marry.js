@@ -15,6 +15,8 @@ const {
 
 
 import Home from './tabs/Home';
+import Album from './tabs/Album';
+import Merchant from './tabs/Merchant';
 
 import TabNavigator from 'react-native-tab-navigator';
 const TabNavigatorItem = TabNavigator.Item;
@@ -142,8 +144,8 @@ export default class Marry extends Component {
 		return (
       <TabNavigator ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
         {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     this._renderNavigatorContent(homeTabTag, Home))}
-        {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    this._renderNavigatorContent(albumTabTag, Home))}
-        {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), this._renderNavigatorContent(merchantTabTag, Home))}
+        {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    this._renderNavigatorContent(albumTabTag, Album))}
+        {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), this._renderNavigatorContent(merchantTabTag, Merchant))}
       </TabNavigator>
 		);
     // return (<View />);
