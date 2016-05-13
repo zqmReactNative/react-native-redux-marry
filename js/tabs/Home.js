@@ -2,20 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 import FaceIcon from '../svg/FaceIcon';
-
+import Channels from '../components/Channels';
 export default class Home extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flexDirection: 'row'}}>
-          <FaceIcon faceType={0}/>
-          <FaceIcon faceType={1}/>
-          <FaceIcon faceType={2}/>
-          <FaceIcon faceType={3}/>
-          <FaceIcon faceType={4}/>
-          <FaceIcon faceType={5}/>
-        </View>
+        <Channels navigator={this.props.navigator}/>
 
         <View style={{flexDirection: 'row'}}>
           <FaceIcon faceType={6}/>
@@ -35,8 +28,9 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#2D2E3F',
+    // backgroundColor: 'white',
   },
 });
