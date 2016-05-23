@@ -17,6 +17,7 @@ const {
 import Home from './tabs/Home';
 import Album from './tabs/Album';
 import Merchant from './tabs/Merchant';
+import MerchantDetail from './views/MerchantDetail';
 
 import TabNavigator from 'react-native-tab-navigator';
 const TabNavigatorItem = TabNavigator.Item;
@@ -81,10 +82,10 @@ export default class Marry extends Component {
         }
 
         configureScene={(route) => {
-            if (route.sceneConfig) {
-              return route.sceneConfig;
-            }
-            return Navigator.SceneConfigs.FloatFromRight;
+            // if (route.sceneConfig) {
+            //   return route.sceneConfig;
+            // }
+            return Navigator.SceneConfigs.FloatFromBottom;
           }
         }
       />
@@ -131,8 +132,8 @@ export default class Marry extends Component {
     );
   };
 
-	render() {
-		var tabBarStyle = {};
+  _renderTabNavigator = (navigator)=>{
+    var tabBarStyle = {};
     var sceneStyle = {};
 
 		if (this.state.isHiddenTabBar) {
@@ -141,12 +142,62 @@ export default class Marry extends Component {
       sceneStyle.paddingBottom = 0;
     }
 
-		return (
-      <TabNavigator ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
-        {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     this._renderNavigatorContent(homeTabTag, Home))}
-        {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    this._renderNavigatorContent(albumTabTag, Album))}
-        {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), this._renderNavigatorContent(merchantTabTag, Merchant))}
+    // return (
+    //   <TabNavigator ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
+    //     {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     this._renderNavigatorContent(homeTabTag, Home))}
+    //     {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    this._renderNavigatorContent(albumTabTag, Album))}
+    //     {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), this._renderNavigatorContent(merchantTabTag, Merchant))}
+    //   </TabNavigator>
+    // );
+    return (
+      <TabNavigator navigator={navigator} ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
+        {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     <Home navigator={navigator}></Home>)}
+        {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    <Album navigator={navigator}></Album>)}
+        {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), <Merchant navigator={navigator}></Merchant>)}
       </TabNavigator>
+    );
+  }
+
+  _renderScene = (route, navigator)=> {
+    console.log("routeId : "+route.routeId);
+    switch (route.routeId) {
+      case "TabNavigator":
+        console.log("TabNavigator");
+        return (this._renderTabNavigator(navigator));
+        break;
+      case homeTabTag:
+        console.log("homeTabTag");
+        return (<Home navigator={navigator}/>);
+        break;
+      case albumTabTag:
+        console.log("albumTabTag");
+        return (<Album navigator={navigator}/>);
+        break;
+      case "MerchantDetail":
+        return (<MerchantDetail navigator={navigator}/>);
+        break;
+      default:
+        return (this._renderTabNavigator(navigator));
+    }
+
+  }
+
+	render() {
+
+
+		return (
+      // this._renderTabNavigator()
+      <Navigator
+        initialRoute={{routeId: "TabNavigator"}}
+        renderScene={this._renderScene}
+        configureScene={(route) => {
+            if (route.sceneConfig) {
+              return route.sceneConfig;
+            }
+            return Navigator.SceneConfigs.PushFromRight;
+          }
+        }
+        />
 		);
     // return (<View />);
 

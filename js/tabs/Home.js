@@ -4,7 +4,9 @@ import { View, StyleSheet, Text } from 'react-native';
 import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
 import Logo from '../svg/Logo';
+import TravelIconType from '../svg/TravelIcon';
 import Channels from '../components/Channels';
+import HourglassLoading from '../../HourglassLoading';
 export default class Home extends Component {
 
   render() {
@@ -20,6 +22,15 @@ export default class Home extends Component {
           <FaceIcon faceType={9}/>
           <FaceIcon faceType={10}/>
           <FaceIcon faceType={11}/>
+        </View>
+
+        <View style={{backgroundColor: '#ccc', flexDirection: 'row'}}>
+          <TravelIconType iconType="TAXI" wy={60}/>
+          <TravelIconType iconType="SHIP" wy={60}/>
+          <TravelIconType iconType="BOAT" wy={60}/>
+          <TravelIconType iconType="BUS" wy={60}/>
+          <TravelIconType iconType="PLANE" wy={60}/>
+          <TravelIconType iconType="BICYCLE" wy={60}/>
         </View>
 
 
