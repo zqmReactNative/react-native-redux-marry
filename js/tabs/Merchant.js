@@ -5,13 +5,14 @@ import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
 import FaceIcon from '../svg/FaceIcon';
+import NavigatorHeader from '../common/NavigatorHeader';
 
 export default class Merchant extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-
+        <NavigatorHeader title={"商家"}/>
         <View style={{flexDirection: 'row'}}>
           <FaceIcon faceType={6}/>
           <FaceIcon faceType={7}/>
@@ -30,8 +31,6 @@ export default class Merchant extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#2D2E3F',
   },
 });

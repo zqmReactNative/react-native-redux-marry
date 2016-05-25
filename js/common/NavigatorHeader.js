@@ -10,8 +10,27 @@ import {
   View,
   Text,
   PixelRatio,
+  TouchableOpacity,
 } from 'react-native';
 
+import Svg, {
+    Circle,
+    G,
+    Path,
+    Polygon,
+} from 'react-native-svg';
+
+class Back extends Component {
+  render(){
+    return (
+      <Svg width={9} height={17}>
+        <G scale={0.34}>
+          <Path stroke="#ff5942" d="M24,3 L3,25 L24,47" strokeWidth={4} strokeCap="round" strokeJoin= "round" fill="none"/>
+        </G>
+      </Svg>
+    );
+  }
+}
 
 export default class NavigatorHeader extends Component {
 
@@ -22,15 +41,21 @@ export default class NavigatorHeader extends Component {
     leftBarButtonItem:PropTypes.func,
     rightBarButtonItems:PropTypes.func,
     isBelongTopNavigator:PropTypes.bool,
-
+    onBackClick:PropTypes.func,
   };
+
+  _onPress = ()=>{
+    if (this.props.onBackClick) {
+      this.props.onBackClick();
+    }
+  }
 
   static defaultProps = {
     title:"",
-    leftBarButtonItem:()=>(<View />),
+    leftBarButtonItem:()=>(<TouchableOpacity style={{marginLeft: 10}} onPress={this._onPress}><Back /></TouchableOpacity>),
     isBelongTopNavigator:false,
     rightBarButtonItems:()=>(<Text style={styles.rightNavBarButtonStyle}></Text>),
-
+    onBackClick:()=>{},
   }
 
   render(){

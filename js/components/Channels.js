@@ -96,6 +96,7 @@ export default class Channels extends Component {
                       if (navigator) {
                         console.log("Channel push to Album");
                         navigator.push({
+                          navigator: navigator,
                           routeId: "MerchantDetail",
                           component:Album,
                           // message: '向右拖拽关闭页面',
