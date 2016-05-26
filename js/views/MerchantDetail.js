@@ -6,12 +6,13 @@ import { ScrollView, View, Text, Image, StyleSheet, RefreshControl, TouchableOpa
 
 import NavigatorHeader from "../common/NavigatorHeader";
 import DetailHeader from "../components/DetailHeader";
+import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from "react-native-scrollable-tab-view";
 
 
 export default class MerchantDetail extends Component {
   constructor(props) {
     super(props);
-  
+
     this.state = {
       isRefreshing: false,
     };
@@ -32,9 +33,24 @@ export default class MerchantDetail extends Component {
           <DetailHeader />
 
           {/*Scroll Table*/}
-          <View style={{flex: 1, backgroundColor: '#ccc'}}>
-          </View>
-          
+          <ScrollableTabView
+            style={{marginTop: 18}}
+            initialPage={0}
+            renderTabBar={() => <DefaultTabBar textStyle={{fontSize: 14,  }} underlineColor="red" backgroundColor="white" activeTextColor="red" inactiveTextColor="black"/>}
+            >
+            <View tabLabel="图库">
+              <Text>
+                1111
+              </Text>
+            </View>
+
+            <View tabLabel="优惠">
+              <Text>
+                2222
+              </Text>
+            </View>
+          </ScrollableTabView>
+
         </ScrollView>
 
         <TouchableOpacity style={styles.button}>
