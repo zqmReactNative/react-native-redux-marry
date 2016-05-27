@@ -1,17 +1,17 @@
 // 用于占位图
 
-import React,{
+import React, {
   Component,
   PropTypes,
 } from 'react';
 
-import {
+import ReactNative, {
   StyleSheet,
   View,
   Image,
 } from 'react-native';
 
-var ReactART = React.ART;
+var ReactNativeART = ReactNative.ART;
 var {
     Group,
     Shape,
@@ -19,7 +19,7 @@ var {
     Surface,
     // Transform,
     // Rectangle,
-} = ReactART;
+} = ReactNativeART;
 
 export default class Img extends Component{
 

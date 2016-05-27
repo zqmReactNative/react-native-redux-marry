@@ -2,20 +2,34 @@
 // 商品详情
 
 import React, { Component } from "react";
-import { ScrollView, View, Text, Image, StyleSheet, RefreshControl, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, Image, StyleSheet, ListView, RefreshControl, TouchableOpacity } from "react-native";
 
 import NavigatorHeader from "../common/NavigatorHeader";
 import DetailHeader from "../components/DetailHeader";
 import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from "react-native-scrollable-tab-view";
-
+import MerchantDetailCell from '../Cell/MerchantDetailCell';
 
 export default class MerchantDetail extends Component {
   constructor(props) {
     super(props);
-
+    const ds = new ListView.DataSource({
+      rowHasChanged:(r1, r2) => r1 !== r2,
+    });
     this.state = {
       isRefreshing: false,
+      dataSourceOfAlbum: ds.cloneWithRows([{}, {}]),
+      dataSourceOfActivity: ds.cloneWithRows([{}, {}, {}, {}]),
     };
+  }
+  _renderAlbumRow = (rowData)=>{
+    return (
+      <MerchantDetailCell />
+    );
+  }
+  _renderActivityRow = (rowData)=>{
+    return (
+      <MerchantDetailCell />
+    );
   }
   render() {
     return (
@@ -39,15 +53,17 @@ export default class MerchantDetail extends Component {
             renderTabBar={() => <DefaultTabBar textStyle={{fontSize: 14,  }} underlineColor="red" backgroundColor="white" activeTextColor="red" inactiveTextColor="black"/>}
             >
             <View tabLabel="图库">
-              <Text>
-                1111
-              </Text>
+              <ListView
+                dataSource={this.state.dataSourceOfAlbum}
+                renderRow={this._renderAlbumRow}
+                />
             </View>
 
             <View tabLabel="优惠">
-              <Text>
-                2222
-              </Text>
+              <ListView
+                dataSource={this.state.dataSourceOfAlbum}
+                renderRow={this._renderActivityRow}
+                />
             </View>
           </ScrollableTabView>
 

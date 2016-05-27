@@ -17,21 +17,30 @@ const imageWidth  = screenWidth - 2*cellPadding;
 export default class MerchantDetailCell extends Component {
 	render() {
 		return (
-			<TouchableHighlight style={styles.container}>
-				<Img />
-				<Text></Text>
-			</TouchableHighlight>
+			<TouchableOpacity style={styles.container}>
+				<Img style={styles.image}/>
+				<Text numberOfLines={1}></Text>
+			</TouchableOpacity>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
 		height: cellHeight,
-		padding: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+		// padding: 10,
+		// marginBottom: 10
+		borderBottomWidth: 2,
+		borderBottomColor: 'black',
 	},
 	image: {
-		width: screenWidth - 20,
-		height: 380
+		width: imageWidth,
+		height: imageHeight,
+	},
+	text: {
+		width: textHeight,
 	},
 });
