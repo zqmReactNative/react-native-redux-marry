@@ -30,9 +30,9 @@ export default class Img extends Component{
   };
 
   render(){
-    var loadingStyle = this.props.style;
+    
     return (
-      <View style={[styles.cover, loadingStyle]}>
+      <Image style={[styles.container, this.props.style]} source={this.props.source}>
         <Surface
           width={40}
           height={40}
@@ -53,17 +53,18 @@ export default class Img extends Component{
             />
 
         </Surface>
-        <Image
-          style={[styles.cover,{backgroundColor:'#ffffff00'}, loadingStyle]}
-          source={this.props.source}/>
-      </View>
+      </Image>
     );
+    
   }
 }
 
 const styles = StyleSheet.create({
   container:{
-    position:"relative"
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cover:{
     position:"absolute",

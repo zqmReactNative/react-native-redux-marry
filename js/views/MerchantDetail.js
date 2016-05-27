@@ -17,7 +17,7 @@ export default class MerchantDetail extends Component {
     });
     this.state = {
       isRefreshing: false,
-      dataSourceOfAlbum: ds.cloneWithRows([{}, {}]),
+      dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}]),
       dataSourceOfActivity: ds.cloneWithRows([{}, {}, {}, {}]),
     };
   }
@@ -31,11 +31,24 @@ export default class MerchantDetail extends Component {
       <MerchantDetailCell />
     );
   }
+  _renderHeader = ()=>{
+    return (
+      <View>
+        <DetailHeader />
+        <View style={{height: 10}}/>
+      </View>
+    );
+  }
+  _renderSeparator = (sectionID, rowID, adjacentRowHighlighted)=>{
+    return (<View key={sectionID+rowID} style={{backgroundColor: 'rgb(247, 247, 247)', height: 10}}></View>);
+  }
   render() {
     return (
       <View style={{flex: 1, backgroundColor: 'rgb(247, 247, 247)'}}>
         <NavigatorHeader title='水木年华' onBackClick={this.props.navigator.pop()}/>
-        <ScrollView
+
+        <ListView
+          style={{marginBottom: 49}}
           refreshControl={
             <RefreshControl
               refreshing = {this.state.isRefreshing}
@@ -43,31 +56,12 @@ export default class MerchantDetail extends Component {
               tintColor='red'
             />
           }
-        >
-          <DetailHeader />
-
-          {/*Scroll Table*/}
-          <ScrollableTabView
-            style={{marginTop: 18}}
-            initialPage={0}
-            renderTabBar={() => <DefaultTabBar textStyle={{fontSize: 14,  }} underlineColor="red" backgroundColor="white" activeTextColor="red" inactiveTextColor="black"/>}
-            >
-            <View tabLabel="图库">
-              <ListView
-                dataSource={this.state.dataSourceOfAlbum}
-                renderRow={this._renderAlbumRow}
-                />
-            </View>
-
-            <View tabLabel="优惠">
-              <ListView
-                dataSource={this.state.dataSourceOfAlbum}
-                renderRow={this._renderActivityRow}
-                />
-            </View>
-          </ScrollableTabView>
-
-        </ScrollView>
+          dataSource={this.state.dataSourceOfAlbum}
+          renderRow={this._renderAlbumRow}
+          renderSectionHeader={()=><View style={{backgroundColor: 'white', height: 40, borderBottomWidth: 1, borderBottomColor: '#ff5942'}}/>}
+          renderHeader={this._renderHeader}
+          renderSeparator={this._renderSeparator}
+        />
 
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>免费咨询</Text>
