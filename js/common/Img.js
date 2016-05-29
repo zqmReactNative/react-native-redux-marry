@@ -25,14 +25,13 @@ export default class Img extends Component{
 
   static propTypes = {
     ...View.propTypes,
-    source:Image.propTypes.source,
-    // loadingStyle:View.propTypes.style,
+    source:Image.propTypes.source
   };
 
   render(){
-    
+    const { imageStyle } = this.props;
     return (
-      <Image style={[styles.container, this.props.style]} source={this.props.source}>
+      <View style={[styles.container, this.props.style]}>
         <Surface
           width={40}
           height={40}
@@ -53,9 +52,10 @@ export default class Img extends Component{
             />
 
         </Surface>
-      </Image>
+        <Image style={[styles.cover, styles.icon, imageStyle || this.props.style]}/>
+      </View>
     );
-    
+
   }
 }
 
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor:"#ededed",
   },
   cover:{
     position:"absolute",
@@ -72,9 +73,10 @@ const styles = StyleSheet.create({
     right:0,
     bottom:0,
     left:0,
-    alignItems:"center",
-    justifyContent:"center",
-    backgroundColor:"#ededed"
+    // alignItems:"center",
+    // justifyContent:"center",
+    // backgroundColor:"#ededed",
+    // backgroundColor:"red"
   },
   icon:{
     height:40,

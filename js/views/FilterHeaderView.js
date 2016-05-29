@@ -1,23 +1,31 @@
 import React, { Component } from "react";
-import { ScrollView, View, Text, Image, StyleSheet, RefreshControl, TouchableOpacity, PixelRatio } from "react-native";
+import { ScrollView, View, Text, Image, StyleSheet, RefreshControl, TouchableOpacity, TouchableHighlight, PixelRatio } from "react-native";
 
 
 export default class FilterHeaderView extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="#ebebeb"
+          activeOpacity={1}
+          >
           <Text>
             XXX
           </Text>
-        </TouchableOpacity>
+        </TouchableHighlight>
         <View style={styles.dividerLine}>
         </View>
-        <TouchableOpacity style={styles.button}>
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="#ebebeb"
+          activeOpacity={1}
+          >
           <Text>
             YYY
           </Text>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -25,7 +33,7 @@ export default class FilterHeaderView extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 39,
+    height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,6 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
     marginTop: 0,
     marginBottom: 0,
+    height: 40,
   },
   dividerLine: {
     // marginTop: 5,

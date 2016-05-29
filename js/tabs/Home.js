@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ScrollView, RefreshControl } from 'react-native';
+import { View, StyleSheet, Text, ListView, ScrollView, RefreshControl } from 'react-native';
 
 import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
@@ -7,22 +7,72 @@ import Logo from '../svg/Logo';
 import TravelIconType from '../svg/TravelIcon';
 import Channels from '../components/Channels';
 import HourglassLoading from '../../HourglassLoading';
+import SectionHeaderView from '../common/SectionHeaderView';
+import MerchantDetailCell from '../Cell/MerchantDetailCell';
 export default class Home extends Component {
 
   constructor(props) {
     super(props);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2)=>r1 !== r2,
+    });
     this.state = {
       isRefreshing: false,
+      dataSourceOfActivities: ds.cloneWithRows([{}]),
+      dataSourceOfMerchants: ds.cloneWithRows([{}, {}, {}]),
+      dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}, {}, {}, {}]),
     };
   }
+  _renderActivityRow = (rowData) => {
+    return (
+      <MerchantDetailCell style={{}}/>
+    );
+  }
+  _renderMerchantRow = (rowData) => {
+    return (
+      <MerchantDetailCell style={{width: 80, height: 100, padding: 5}} textContainer={{ height: 30}} textStyle={{fontSize:12 }} imageStyle={{width: 70, height: 70}} title="222222222s"/>
+    );
+  }
+  _renderHeader = ()=> {
+    return (
+      <View>
+        <Channels style={{ backgroundColor: 'white'}} navigator={this.props.navigator}/>
+        <ListView
+          style={{marginTop: 15, backgroundColor: 'white'}}
+          renderRow={this._renderActivityRow}
+          dataSource={this.state.dataSourceOfActivities}
+          renderHeader={()=><SectionHeaderView title="优惠活动"/>}
+          />
+        <SectionHeaderView style={{marginTop: 15}} title="推荐商家"/>
+        <ListView
+          style={{backgroundColor: 'white'}}
+          horizontal={true}
+          renderRow={this._renderMerchantRow}
+          dataSource={this.state.dataSourceOfActivities}
+          />
+        <SectionHeaderView style={{marginTop: 15}} title=""/>
 
+      </View>
+    );
+  }
+  _renderAlbumRow = (rowData) => {
+    return (
+      <View style={{height: 60}}>
+        <Text>
+          _renderAlbumRow
+        </Text>
+      </View>
+    );
+  }
   render() {
     console.log('render Home');
     return (
       <View style={styles.container}>
-        <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉武汉</Text>)} titleView={()=><Logo/>}/>
-        <ScrollView 
-          style={styles.scrollViewContainer}
+        <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} titleView={()=><Logo/>}/>
+        <ListView
+          dataSource={this.state.dataSourceOfAlbum}
+          renderHeader={this._renderHeader}
+          renderRow={this._renderAlbumRow}
           refreshControl={
             <RefreshControl
               refreshing = {this.state.isRefreshing}
@@ -30,31 +80,13 @@ export default class Home extends Component {
               tintColor='red'
             />
           }
-        >
-          
-          <Channels style={{ backgroundColor: 'white'}} navigator={this.props.navigator}/>
-
-          <View style={{flexDirection: 'row'}}>
-            <FaceIcon faceType={6}/>
-            <FaceIcon faceType={7}/>
-            <FaceIcon faceType={8}/>
-            <FaceIcon faceType={9}/>
-            <FaceIcon faceType={10}/>
-            <FaceIcon faceType={11}/>
-          </View>
-
-          <View style={{backgroundColor: '#ccc', flexDirection: 'row'}}>
-            <TravelIconType iconType="TAXI" wy={60}/>
-            <TravelIconType iconType="SHIP" wy={60}/>
-            <TravelIconType iconType="BOAT" wy={60}/>
-            <TravelIconType iconType="BUS" wy={60}/>
-            <TravelIconType iconType="PLANE" wy={60}/>
-            <TravelIconType iconType="BICYCLE" wy={60}/>
-          </View>
+          />
 
 
-        </ScrollView>
-        
+
+
+
+
 
 
       </View>

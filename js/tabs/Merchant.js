@@ -8,26 +8,35 @@ import FaceIcon from '../svg/FaceIcon';
 import NavigatorHeader from '../common/NavigatorHeader';
 
 import FilterHeaderView from '../views/FilterHeaderView';
+import MerchantCell from '../Cell/MerchantCell';
 
 export default class Merchant extends Component {
-
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2)=>r1 !== r2,
+    });
+    this.state = {
+      dataSource: ds.cloneWithRows([{}, {}]),
+    };
+  }
+  _renderRow = (rowData)=>{
+    return (<MerchantCell />);
+  }
   render() {
     return (
       <View style={styles.container}>
         <NavigatorHeader title={"商家"}/>
-        {/*
-        <View style={{flexDirection: 'row'}}>
-          <FaceIcon faceType={6}/>
-          <FaceIcon faceType={7}/>
-          <FaceIcon faceType={8}/>
-          <FaceIcon faceType={9}/>
-          <FaceIcon faceType={10}/>
-          <FaceIcon faceType={11}/>
-        </View>
-        */}
         <View>
           <FilterHeaderView />
         </View>
+
+        <ListView
+          style={{flex: 1}}
+          enableEmptySections = {true}
+          dataSource={this.state.dataSource}
+          renderRow={this._renderRow}
+          />
 
 
       </View>

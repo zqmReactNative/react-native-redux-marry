@@ -5,6 +5,7 @@ import React, { Component } from "react";
 
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import Stars from '../svg/Stars';
+import Img from '../common/Img';
 
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -13,7 +14,7 @@ export default class DetailHeader extends Component {
   render() {
     return (
       <View style={styles.container}>
-      	<Image style={styles.image}/>
+      	<Img style={styles.image} source={require('../../images/404.png')}/>
       	<View style={styles.rightContainer}>
 	      	<Text numberOfLines={1} style={styles.title}>花漾婚礼会馆</Text>
 	      	<Stars count={3}/>
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 	image: {
 		width: 80,
 		height: 80,
-		backgroundColor: '#565656',
+		// backgroundColor: '#565656',
 		borderRadius: 5,
 		// marginLeft: 15,
 	},
