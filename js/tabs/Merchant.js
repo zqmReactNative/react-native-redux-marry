@@ -27,9 +27,9 @@ export default class Merchant extends Component {
     return (
       <View style={styles.container}>
         <NavigatorHeader title={"商家"}/>
-        <View>
+
           <FilterHeaderView />
-        </View>
+
 
         <ListView
           style={{flex: 1}}

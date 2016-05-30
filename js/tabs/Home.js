@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ListView, ScrollView, RefreshControl } from 'react-native';
+import { View, StyleSheet, Text, ListView, ScrollView, RefreshControl, PixelRatio } from 'react-native';
 
 import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
@@ -50,7 +50,8 @@ export default class Home extends Component {
           renderRow={this._renderMerchantRow}
           dataSource={this.state.dataSourceOfActivities}
           />
-        <SectionHeaderView style={{marginTop: 15}} title=""/>
+        <View style={{backgroundColor:'white', marginTop: 15, height: 30, borderBottomWidth: 1/PixelRatio.get(), borderBottomColor: 'red'}}>
+        </View>
 
       </View>
     );

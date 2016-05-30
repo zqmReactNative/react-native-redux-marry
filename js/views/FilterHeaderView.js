@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'pink',
+    // backgroundColor: 'pink',
     marginTop: 0,
     marginBottom: 0,
     height: 40,
