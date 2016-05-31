@@ -56,9 +56,9 @@ export default class Home extends Component {
       </View>
     );
   }
-  _renderAlbumRow = (rowData) => {
+  _renderAlbumRow = (rowData, sectionID, rowID, highlightRow) => {
     return (
-      <View style={{height: 60}}>
+      <View style={{height: 60, width: 100, backgroundColor: 'pink', padding: 5, margin: 3,}}>
         <Text>
           _renderAlbumRow
         </Text>
@@ -71,6 +71,7 @@ export default class Home extends Component {
       <View style={styles.container}>
         <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} titleView={()=><Logo/>}/>
         <ListView
+          contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
           dataSource={this.state.dataSourceOfAlbum}
           renderHeader={this._renderHeader}
           renderRow={this._renderAlbumRow}

@@ -1,29 +1,52 @@
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 import { ScrollView, View, Text, Image, StyleSheet, RefreshControl, TouchableOpacity, TouchableHighlight, PixelRatio } from "react-native";
 
 
+
 export default class FilterHeaderView extends Component {
+  static propTypes = {
+    leftButtonTitle: PropTypes.string,
+    rightButtonTitle: PropTypes.string,
+    onPressLeft: PropTypes.func,
+    onPressRight: PropTypes.func,
+  }
+  static defaultProps = {
+    leftButtonTitle: "",
+    rightButtonTitle: "",
+  }
+  _onPressLeft = ()=>{
+    if (this.props.onPressLeft) {
+      this.props.onPressLeft();
+    }
+  }
+  _onPressRight = ()=>{
+    if (this.props.onPressRight) {
+      this.props.onPressRight();
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
         <TouchableHighlight
+          onPress={this._onPressLeft}
           style={styles.button}
           underlayColor="#ebebeb"
           activeOpacity={1}
           >
           <Text>
-            XXX
+            {this.props.leftButtonTitle}
           </Text>
         </TouchableHighlight>
         <View style={styles.dividerLine}>
         </View>
         <TouchableHighlight
+          onPress={this._onPressRight}
           style={styles.button}
           underlayColor="#ebebeb"
           activeOpacity={1}
           >
           <Text>
-            YYY
+            {this.props.rightButtonTitle}
           </Text>
         </TouchableHighlight>
       </View>
