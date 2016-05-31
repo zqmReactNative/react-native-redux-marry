@@ -9,6 +9,7 @@ import Channels from '../components/Channels';
 import HourglassLoading from '../../HourglassLoading';
 import SectionHeaderView from '../common/SectionHeaderView';
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
+import AlbumCell from '../Cell/AlbumCell';
 export default class Home extends Component {
 
   constructor(props) {
@@ -57,13 +58,17 @@ export default class Home extends Component {
     );
   }
   _renderAlbumRow = (rowData, sectionID, rowID, highlightRow) => {
-    return (
-      <View style={{height: 60, width: 100, backgroundColor: 'pink', padding: 5, margin: 3,}}>
-        <Text>
-          _renderAlbumRow
-        </Text>
-      </View>
-    );
+    // return (
+    //   <View style={{height: 60, width: 100, backgroundColor: 'pink', padding: 5, margin: 3,}}>
+    //     <Text>
+    //       _renderAlbumRow
+    //     </Text>
+    //   </View>
+    // );
+    return (<AlbumCell />);
+  }
+  _renderSeparator = (sectionID, rowID, adjacentRowHighlighted)=>{
+    return (<View key={sectionID+rowID} style={{backgroundColor: 'rgb(247, 247, 247)', height: 10}}></View>);
   }
   render() {
     console.log('render Home');
@@ -75,6 +80,7 @@ export default class Home extends Component {
           dataSource={this.state.dataSourceOfAlbum}
           renderHeader={this._renderHeader}
           renderRow={this._renderAlbumRow}
+          renderSeparator={this._renderSeparator}
           refreshControl={
             <RefreshControl
               refreshing = {this.state.isRefreshing}
@@ -83,13 +89,6 @@ export default class Home extends Component {
             />
           }
           />
-
-
-
-
-
-
-
 
       </View>
     );
