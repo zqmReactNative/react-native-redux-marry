@@ -27,11 +27,16 @@ export default class AlbumCell extends Component {
       case CellType.WIDE:
         imageStyle=styles.imageWideStyle;
         break;
+      case CellType.TALL:
+        imageStyle=styles.imageTallStyle;
+        titleStyle=styles.titleTallStyle;
+        detailTitleStyle=styles.detailTitleTallStyle;
+        break;
       default:
         imageStyle=styles.imageWideStyle;
     }
     return (
-      <TouchableHighlight style={{backgroundColor: 'white', padding: 10, alignItems: 'center', justifyContent: 'center'}}>
+      <TouchableHighlight style={{backgroundColor: 'green', borderBottomWidth: 10, borderBottomColor: 'rgb(247, 247, 247)', backgroundColor: 'white', paddingLeft: 10, paddingRight: 10, paddingTop: 10, alignItems: 'center', justifyContent: 'center'}}>
         <View>
           <Img style={imageStyle}/>
           <View>
@@ -40,9 +45,9 @@ export default class AlbumCell extends Component {
             </Text>
           </View>
 
-          <View>
+          <View style={{backgroundColor: 'pink'}}>
             <Text numberOfLines={1} style={detailTitleStyle}>
-              新世界酒店新世界酒店 新世界酒店新世界酒店 新世界酒店新世界酒店
+              新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店
             </Text>
           </View>
 
@@ -62,21 +67,31 @@ const styles = StyleSheet.create({
     width: screenWidth - 20,
     height: 25,
     fontSize: 18,
+    color: '#666',
   },
   detailTitleWideStyle: {
     width: screenWidth - 20,
     height: 20,
     fontSize: 15,
+    color: '#666',
   },
 
   imageTallStyle: {
-
+    borderRadius: 5,
+    width: (screenWidth-100)/2,
+    height: 350/270*(screenWidth-100)/2,
   },
   titleTallStyle: {
-
+    width: (screenWidth-100)/2,
+    height: 25,
+    fontSize: 18,
+    color: '#666',
   },
   detailTitleTallStyle: {
-
+    width: 100,
+    height: 20,
+    fontSize: 15,
+    color: '#666',
   },
 
   imageStandardStyle: {

@@ -65,10 +65,10 @@ export default class Home extends Component {
     //     </Text>
     //   </View>
     // );
-    return (<AlbumCell />);
+    return (<AlbumCell cellType="tall"/>);
   }
   _renderSeparator = (sectionID, rowID, adjacentRowHighlighted)=>{
-    return (<View key={sectionID+rowID} style={{backgroundColor: 'rgb(247, 247, 247)', height: 10}}></View>);
+    return (<View key={sectionID+rowID} style={{backgroundColor: 'red', height: 10}}></View>);
   }
   render() {
     console.log('render Home');
@@ -80,7 +80,7 @@ export default class Home extends Component {
           dataSource={this.state.dataSourceOfAlbum}
           renderHeader={this._renderHeader}
           renderRow={this._renderAlbumRow}
-          renderSeparator={this._renderSeparator}
+          // renderSeparator={this._renderSeparator}
           refreshControl={
             <RefreshControl
               refreshing = {this.state.isRefreshing}
