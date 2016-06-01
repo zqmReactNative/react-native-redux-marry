@@ -45,7 +45,7 @@ export default class AlbumCell extends Component {
             </Text>
           </View>
 
-          <View style={{backgroundColor: 'pink'}}>
+          <View>
             <Text numberOfLines={1} style={detailTitleStyle}>
               新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店
             </Text>
@@ -78,17 +78,17 @@ const styles = StyleSheet.create({
 
   imageTallStyle: {
     borderRadius: 5,
-    width: (screenWidth-100)/2,
-    height: 350/270*(screenWidth-100)/2,
+    width: (screenWidth-40)/2,
+    height: 350/270*(screenWidth-40)/2,
   },
   titleTallStyle: {
-    width: (screenWidth-100)/2,
+    width: (screenWidth-40)/2,
     height: 25,
     fontSize: 18,
     color: '#666',
   },
   detailTitleTallStyle: {
-    width: 100,
+    width: (screenWidth-40)/2,
     height: 20,
     fontSize: 15,
     color: '#666',
