@@ -95,12 +95,20 @@ const styles = StyleSheet.create({
   },
 
   imageStandardStyle: {
-
+    borderRadius: 5,
+    width: (screenWidth-40)/2,
+    height: 350/270*(screenWidth-40)/2,
   },
   titleStandardStyle: {
-
+    width: (screenWidth-40)/2,
+    height: 25,
+    fontSize: 18,
+    color: '#666',
   },
   detailTitleStandardStyle: {
-
+    width: (screenWidth-40)/2,
+    height: 20,
+    fontSize: 15,
+    color: '#666',
   },
 });
