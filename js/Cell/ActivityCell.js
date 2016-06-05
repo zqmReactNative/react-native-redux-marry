@@ -1,5 +1,5 @@
 // ActivityCell.js
-// 用于商品页的cell
+// 用于优惠活动的cell
 
 import React, { Component, PropTypes } from "react";
 
@@ -21,6 +21,11 @@ export default class ActivityCell extends Component {
 		textContainer: View.propTypes.style,
 		textStyle: Text.propTypes.style,
 		title: PropTypes.string,
+		source:Image.propTypes.source,
+		onPress:PropTypes.func,
+	}
+	_onPress = ()=>{
+		this.props.onPress && this.props.onPress();
 	}
 	render() {
 		const { style, imageStyle, textContainer, textStyle, title } = this.props;
@@ -28,6 +33,8 @@ export default class ActivityCell extends Component {
 			<TouchableOpacity
 				// underlayColor='white'
 				style={[styles.container, style]}
+				activeOpacity={1}
+				onPress={this._onPress}
 			>
 				<Img style={[styles.image, imageStyle]}/>
 

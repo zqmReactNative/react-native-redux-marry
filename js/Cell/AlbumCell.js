@@ -15,14 +15,22 @@ const CellType = {
 export default class AlbumCell extends Component {
   static propTypes = {
     cellType: PropTypes.string,
+    onPress: PropTypes.func,
+    title: PropTypes.string,
+    detailTitle: PropTypes.string,
+    source: Image.propTypes.source,
   }
   static defaultProps = {
     cellType: CellType.WIDE,
+  }
+  _onPress = ()=>{
+    this.props.onPress && this.props.onPress()
   }
   render() {
     let imageStyle = styles.imageWideStyle;
     let titleStyle = styles.titleWideStyle;
     let detailTitleStyle = styles.detailTitleWideStyle;
+    const { source, title, detailTitle } = this.props;
     switch (this.props.cellType) {
       case CellType.WIDE:
         imageStyle=styles.imageWideStyle;
@@ -36,18 +44,21 @@ export default class AlbumCell extends Component {
         imageStyle=styles.imageWideStyle;
     }
     return (
-      <TouchableHighlight style={{backgroundColor: 'green', borderBottomWidth: 10, borderBottomColor: 'rgb(247, 247, 247)', backgroundColor: 'white', paddingLeft: 10, paddingRight: 10, paddingTop: 10, alignItems: 'center', justifyContent: 'center'}}>
+      <TouchableHighlight
+        style={{backgroundColor: 'green', borderBottomWidth: 10, borderBottomColor: 'rgb(247, 247, 247)', backgroundColor: 'white', paddingLeft: 10, paddingRight: 10, paddingTop: 10, alignItems: 'center', justifyContent: 'center'}}
+        onPress={this._onPress}
+        >
         <View>
-          <Img style={imageStyle}/>
+          <Img style={imageStyle} source={source}/>
           <View>
             <Text numberOfLines={1} style={titleStyle}>
-              [新世界酒店]户外婚礼[新世界酒店]户外婚礼[新世界酒店]户外婚礼
+              {title}
             </Text>
           </View>
 
           <View>
             <Text numberOfLines={1} style={detailTitleStyle}>
-              新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店新世界酒店
+              {detailTitle}
             </Text>
           </View>
 

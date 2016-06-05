@@ -10,6 +10,7 @@ import HourglassLoading from '../../HourglassLoading';
 import SectionHeaderView from '../common/SectionHeaderView';
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
 import AlbumCell from '../Cell/AlbumCell';
+import ActivityCell from '../Cell/ActivityCell';
 
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -85,7 +86,7 @@ export default class Home extends Component {
   }
   _renderActivityRow = (rowData) => {
     return (
-      <MerchantDetailCell style={{}}/>
+      <ActivityCell style={{}}/>
     );
   }
   _renderMerchantRow = (rowData) => {
@@ -126,7 +127,7 @@ export default class Home extends Component {
     //     </Text>
     //   </View>
     // );
-    return (<AlbumCell cellType="tall"/>);
+    return (<AlbumCell cellType="wide" title={rowData.subject} detailTitle={rowData.shopname} source={{uri:rowData.cover}}/>);
   }
   _renderSeparator = (sectionID, rowID, adjacentRowHighlighted)=>{
     return (<View key={sectionID+rowID} style={{backgroundColor: 'red', height: 10}}></View>);

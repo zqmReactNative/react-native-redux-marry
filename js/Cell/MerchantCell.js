@@ -31,13 +31,13 @@ export default class MerchantCell extends Component {
   };
 
   _onPress = ()=>{
-    this.props.didSelectedCell && this.props.didSelectedCell()
+    this.props.onPress && this.props.onPress()
   }
   render() {
     const {logo, shopName, catname, level, cases, activities} = this.props;
     return (
       <TouchableHighlight
-        
+
         underlayColor="#ebebeb"
         activeOpacity={1}
         onPress={this._onPress}
