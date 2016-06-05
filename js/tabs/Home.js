@@ -36,7 +36,7 @@ export default class Home extends Component {
     });
     this.state = {
       isLoading:false,
-      isRefreshing: false,
+      isRefreshing: true,
       dataSourceOfActivities: ds.cloneWithRows([{}]),
       dataSourceOfMerchants: ds.cloneWithRows([{}, {}, {}]),
       dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}, {}, {}, {}]),
@@ -54,10 +54,11 @@ export default class Home extends Component {
     .then((response)=>response.json())
     .then((responseData)=>{
 
-      resultsCache.activity = responseData.data.activity || Array(2);
-      resultsCache.shop = responseData.data.shop || Array(4);
-      resultsCache.cases = responseData.data.cases || Array(4);
+      resultsCache.activity = responseData.data.activity;
+      resultsCache.shop = responseData.data.shop;
+      resultsCache.cases = responseData.data.cases;
       console.log("resultsCache.activity: "+resultsCache.activity);
+      console.log("resultsCache.shop: "+resultsCache.shop);
       // ERROR!错误!
       // this.setState = {
       //   isRefreshing:false,
@@ -67,6 +68,7 @@ export default class Home extends Component {
         isRefreshing:false,
         dataSourceOfActivities:this.state.dataSourceOfActivities.cloneWithRows(resultsCache.activity),
         dataSourceOfMerchants:this.state.dataSourceOfMerchants.cloneWithRows(resultsCache.shop),
+        dataSourceOfAlbum: this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.cases),
       });
     })
     .catch((error)=>{
@@ -77,6 +79,7 @@ export default class Home extends Component {
         isRefreshing:false,
         dataSourceOfActivities:this.state.dataSourceOfActivities.cloneWithRows(resultsCache.activity),
         dataSourceOfMerchants:this.state.dataSourceOfMerchants.cloneWithRows(resultsCache.shop),
+        dataSourceOfAlbum: this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.cases),
       });
     })
   }
@@ -87,7 +90,7 @@ export default class Home extends Component {
   }
   _renderMerchantRow = (rowData) => {
     return (
-      <MerchantDetailCell style={{width: 80, height: 100, padding: 5}} textContainer={{ height: 30}} textStyle={{fontSize:12 }} imageStyle={{width: 70, height: 70}} title="222222222s"/>
+      <MerchantDetailCell style={{width: 80, height: 100, padding: 5}} textContainer={{ height: 30}} textStyle={{fontSize:12 }} imageStyle={{width: 70, height: 70, borderRadius: 3}} source={{uri:rowData.logo}} title={rowData.shopname}/>
     );
   }
   _renderHeader = ()=> {
@@ -106,7 +109,7 @@ export default class Home extends Component {
           style={{backgroundColor: 'white'}}
           horizontal={true}
           renderRow={this._renderMerchantRow}
-          dataSource={this.state.dataSourceOfActivities}
+          dataSource={this.state.dataSourceOfMerchants}
           enableEmptySections={true}
           />
         <View style={{backgroundColor:'white', marginTop: 15, height: 30, borderBottomWidth: 1/PixelRatio.get(), borderBottomColor: 'red'}}>
@@ -143,7 +146,7 @@ export default class Home extends Component {
           refreshControl={
             <RefreshControl
               refreshing = {this.state.isRefreshing}
-              // onRefresh={this._onRefresh}
+              onRefresh={this._onRefresh}
               tintColor='red'
             />
           }

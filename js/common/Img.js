@@ -29,7 +29,7 @@ export default class Img extends Component{
   };
 
   render(){
-    const { imageStyle } = this.props;
+    const { imageStyle, source } = this.props;
     return (
       <View style={[styles.container, this.props.style]}>
         <Surface
@@ -52,7 +52,7 @@ export default class Img extends Component{
             />
 
         </Surface>
-        <Image style={[styles.cover, styles.icon, imageStyle || this.props.style]}/>
+        <Image source={source} style={[styles.cover, styles.icon, imageStyle || this.props.style]}/>
       </View>
     );
 

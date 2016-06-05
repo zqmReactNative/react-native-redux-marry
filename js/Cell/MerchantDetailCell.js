@@ -17,19 +17,20 @@ const imageWidth  = screenWidth - 2*cellPadding;
 export default class MerchantDetailCell extends Component {
 	static propTypes = {
 		...View.propTypes,
+		source: Image.propTypes.source,
 		imageStyle: Image.propTypes.style,
 		textContainer: View.propTypes.style,
 		textStyle: Text.propTypes.style,
 		title: PropTypes.string,
 	}
 	render() {
-		const { style, imageStyle, textContainer, textStyle, title } = this.props;
+		const { style, imageStyle, textContainer, textStyle, title, source } = this.props;
 		return (
 			<TouchableOpacity
 				// underlayColor='white'
 				style={[styles.container, style]}
 			>
-				<Img style={[styles.image, imageStyle]}/>
+				<Img style={[styles.image, imageStyle]} source={source} />
 
 				<View style={[styles.textContainer, textContainer]}>
 					<Text style={[styles.text, textStyle]} numberOfLines={1}>{title}</Text>
