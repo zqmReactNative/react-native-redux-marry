@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ListView, ScrollView, RefreshControl, PixelRatio } from 'react-native';
+import { Dimensions, View, StyleSheet, Text, ListView, ScrollView, RefreshControl, PixelRatio } from 'react-native';
 
 import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
@@ -10,6 +10,23 @@ import HourglassLoading from '../../HourglassLoading';
 import SectionHeaderView from '../common/SectionHeaderView';
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
 import AlbumCell from '../Cell/AlbumCell';
+
+const screenWidth  = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
+let resultsCache = {
+  activity:[],
+  shop:[],
+  cases:[],
+};
+const url_home = "http://newapi.deyi.com/wedding/api/index";
+const url_request = {
+  method:'POST',
+  body:JSON.stringify({
+
+  }),
+}
+
 export default class Home extends Component {
 
   constructor(props) {
@@ -18,11 +35,50 @@ export default class Home extends Component {
       rowHasChanged: (r1, r2)=>r1 !== r2,
     });
     this.state = {
+      isLoading:false,
       isRefreshing: false,
       dataSourceOfActivities: ds.cloneWithRows([{}]),
       dataSourceOfMerchants: ds.cloneWithRows([{}, {}, {}]),
       dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}, {}, {}, {}]),
     };
+  }
+  componentDidMount() {
+    this._onRefresh();
+  }
+  _onRefresh = ()=>{
+    this._getNetworkData();
+  };
+  _getNetworkData = ()=>{
+
+    fetch(url_home,url_request)
+    .then((response)=>response.json())
+    .then((responseData)=>{
+
+      resultsCache.activity = responseData.data.activity || Array(2);
+      resultsCache.shop = responseData.data.shop || Array(4);
+      resultsCache.cases = responseData.data.cases || Array(4);
+      console.log("resultsCache.activity: "+resultsCache.activity);
+      // ERROR!错误!
+      // this.setState = {
+      //   isRefreshing:false,
+      //   dataSource:this.state.dataSource.cloneWithRows(["r 0", "r 1", "r2", "r3", "r4"]),
+      // };
+      this.setState({
+        isRefreshing:false,
+        dataSourceOfActivities:this.state.dataSourceOfActivities.cloneWithRows(resultsCache.activity),
+        dataSourceOfMerchants:this.state.dataSourceOfMerchants.cloneWithRows(resultsCache.shop),
+      });
+    })
+    .catch((error)=>{
+      resultsCache.activity = Array(2);
+      resultsCache.shop = Array(4);
+      resultsCache.cases = [];
+      this.setState({
+        isRefreshing:false,
+        dataSourceOfActivities:this.state.dataSourceOfActivities.cloneWithRows(resultsCache.activity),
+        dataSourceOfMerchants:this.state.dataSourceOfMerchants.cloneWithRows(resultsCache.shop),
+      });
+    })
   }
   _renderActivityRow = (rowData) => {
     return (
@@ -36,13 +92,14 @@ export default class Home extends Component {
   }
   _renderHeader = ()=> {
     return (
-      <View>
+      <View style={{width: screenWidth}}>
         <Channels style={{ backgroundColor: 'white'}} navigator={this.props.navigator}/>
         <ListView
           style={{marginTop: 15, backgroundColor: 'white'}}
           renderRow={this._renderActivityRow}
           dataSource={this.state.dataSourceOfActivities}
           renderHeader={()=><SectionHeaderView title="优惠活动"/>}
+          enableEmptySections={true}
           />
         <SectionHeaderView style={{marginTop: 15}} title="推荐商家"/>
         <ListView
@@ -50,6 +107,7 @@ export default class Home extends Component {
           horizontal={true}
           renderRow={this._renderMerchantRow}
           dataSource={this.state.dataSourceOfActivities}
+          enableEmptySections={true}
           />
         <View style={{backgroundColor:'white', marginTop: 15, height: 30, borderBottomWidth: 1/PixelRatio.get(), borderBottomColor: 'red'}}>
         </View>
@@ -80,6 +138,7 @@ export default class Home extends Component {
           dataSource={this.state.dataSourceOfAlbum}
           renderHeader={this._renderHeader}
           renderRow={this._renderAlbumRow}
+          enableEmptySections={true}
           // renderSeparator={this._renderSeparator}
           refreshControl={
             <RefreshControl
