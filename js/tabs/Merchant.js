@@ -10,12 +10,29 @@ import NavigatorHeader from '../common/NavigatorHeader';
 import FilterHeaderView from '../views/FilterHeaderView';
 import MerchantCell from '../Cell/MerchantCell';
 
+import SplitView from '../common/SplitView';
+
 import * as categories from "../data/categories";
 
 import * as areas from "../data/areas";
 
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
+
+
+const url_shoplist = "http://newapi.deyi.com/wedding/api/shoplist";
+const body_shoplist = {
+  method: 'POST',
+  body:JSON.stringify({
+    "areaid": 0,
+  	"catid": categories.defaultId,
+  	"page": 1
+  })
+}
+
+let resultsCache = {
+  shoplist:[],
+};
 
 export default class Merchant extends Component {
   constructor(props) {
@@ -53,7 +70,7 @@ export default class Merchant extends Component {
     this._showFilterView()
   }
   _showFilterView = ()=>{
-    
+
     Animated.timing(       // Uses easing functions
       this.state.fadeAnim, // The value to drive
       {
@@ -94,14 +111,19 @@ export default class Merchant extends Component {
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           />
-          
+        {/*
         <Animated.View style={[styles.mask, {left: this.state.fadeAnim }]}>
           <TouchableOpacity activeOpacity={1} onPress={this._onPressLeft} style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'green'}}>
             <View>
             </View>
           </TouchableOpacity>
         </Animated.View>
-        
+        */}
+        <Animated.View style={[styles.mask, {left: this.state.fadeAnim }]}>
+          <SplitView style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, backgroundColor: 'green'}} />
+        </Animated.View>
+
+
 
       </Animated.View>
     );
@@ -116,9 +138,9 @@ const styles = StyleSheet.create({
   },
   mask: {
     position: 'absolute',
-    // left: -screenWidth, 
+    // left: -screenWidth,
     // right: screenWidth,
-    top: 64+40, 
+    top: 64+40,
     bottom: 0,
     width: screenWidth,
     backgroundColor: 'rgba(55, 55, 55, 0.5)',
