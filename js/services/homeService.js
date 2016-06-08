@@ -3,10 +3,15 @@
 import * as requestService from './request';
 import {getToken, setToken} from './token';
 
-export function function_name(argument) {
+export function getXXXX(argument) {
 	// body...
 	let body = {
 
 	};
 	let url = `TODO:`;
+	return requestService.get(url)
+	.then(filterData)
+	.then(data=>{
+		
+	})
 }
