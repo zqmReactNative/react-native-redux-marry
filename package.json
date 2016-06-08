@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "normalizr": "^2.0.1",
+    "query-string": "^4.2.1",
     "react": "^0.14.8",
     "react-native": "^0.24.1",
     "react-native-scrollable-tab-view": "^0.4.1",
