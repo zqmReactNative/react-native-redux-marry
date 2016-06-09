@@ -47,7 +47,7 @@
 // 					return babelHelpers.inherits(t,e),babelHelpers.createClass(t,[{key:"render",value:function(){return o["default"].createElement(i.View,babelHelpers["extends"]({},this.props,{style:f.container}),o["default"].createElement(l["default"],{style:f.cateContainer,data:this.state.parent,renderRow:this._renderParentRow}),o["default"].createElement(i.ListView,{style:f.itemContainer,dataSource:this.state.children,renderRow:this._renderChildRow,pageSize:8}))}}]),t}(i.Component);h.displayName="FiltersCategory",r["default"]=h}),
 
 import React, { Component, PropTypes } from 'react';
-import { Animated, View, StyleSheet, Text, ListView, Dimensions, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Animated, View, StyleSheet, Text, ListView, Dimensions, PixelRatio, TouchableOpacity, TouchableHighlight } from 'react-native';
 
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
 		height:39,
 		marginLeft:6,
 		borderBottomColor:"#ebebeb",
-		borderBottomWidth:1/px
+		borderBottomWidth:1/PixelRatio.get()
 	},
 	childContainer: {
 		justifyContent:"center",
