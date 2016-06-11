@@ -52,7 +52,7 @@ export default class NavigatorHeader extends Component {
 
   static defaultProps = {
     title:"",
-    leftBarButtonItem:()=>(<TouchableOpacity style={{marginLeft: 10}} onPress={this._onPress}><Back /></TouchableOpacity>),
+    leftBarButtonItem:()=><View />,//()=>(<TouchableOpacity style={{marginLeft: 10}} onPress={this._onPress}><Back /></TouchableOpacity>),
     isBelongTopNavigator:false,
     rightBarButtonItems:()=>(<Text style={styles.rightNavBarButtonStyle}></Text>),
     onBackClick:()=>{},
@@ -73,7 +73,7 @@ export default class NavigatorHeader extends Component {
           <View style={styles.centerViewStyle}>
             {titleView? titleView():(<Text style={styles.title}>{this.props.title}</Text>)}
           </View>
-          
+
           {rightBarButtonItems()}
         </View>
         <View style={styles.divider}/>

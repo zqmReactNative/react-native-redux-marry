@@ -95,7 +95,7 @@ export default class Merchant extends Component {
   render() {
     return (
       <Animated.View style={[styles.container, ]}>
-        <NavigatorHeader title={"商家"}/>
+        <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} title={"商家"}/>
 
           <FilterHeaderView
             leftButtonTitle={categories.defaultTitle}
