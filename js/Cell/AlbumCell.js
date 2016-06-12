@@ -45,7 +45,8 @@ export default class AlbumCell extends Component {
     }
     return (
       <TouchableHighlight
-        style={{backgroundColor: 'green', borderBottomWidth: 10, borderBottomColor: 'rgb(247, 247, 247)', backgroundColor: 'white', paddingLeft: 10, paddingRight: 10, paddingTop: 10, alignItems: 'center', justifyContent: 'center'}}
+        underlayColor="#ebebeb"
+        style={{ borderBottomWidth: 10, borderBottomColor: 'rgb(247, 247, 247)', backgroundColor: 'white', paddingLeft: 10, paddingRight: 10, paddingTop: 10, alignItems: 'center', justifyContent: 'center'}}
         onPress={this._onPress}
         >
         <View>
