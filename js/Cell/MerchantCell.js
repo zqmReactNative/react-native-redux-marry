@@ -13,7 +13,7 @@ export default class MerchantCell extends Component {
     onPress:PropTypes.func,
     source:Image.propTypes.source,
     logo:PropTypes.string,//商品图片地址
-    shopName:PropTypes.string,//商品名,注意JSON里面为shopname
+    shopname:PropTypes.string,//商品名,注意JSON里面为shopname
     catname:PropTypes.string,//分类
     level:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),//星级
     cases:PropTypes.string,//图库
@@ -34,7 +34,7 @@ export default class MerchantCell extends Component {
     this.props.onPress && this.props.onPress()
   }
   render() {
-    const {logo, shopName, catname, level, cases, activities} = this.props;
+    const { source, logo, shopname, catname, level, cases, activities} = this.props;
     return (
       <TouchableHighlight
 
@@ -46,13 +46,13 @@ export default class MerchantCell extends Component {
           <View style={styles.cover}>
             {/*<Img source={{uri:'http:\/\/jiehun.deyi.com\/uploads\/2016\/02\/16\/cc985b361823f9669574e7302ddac0c4.jpg'}}/>*/}
             {/*<Img style={styles.cover} source={this.props.source}/>*/}
-            <Img style={styles.cover} source={{uri:logo}}/>
+            <Img style={styles.cover} source={source}/>
 
           </View>
 
           <View style={[styles.coverContainer, ]}>
             <View style={[styles.titleContainer, styles.info, ]}>
-              <Text style={[styles.title]}>{shopName}</Text>
+              <Text style={[styles.title]}>{shopname}</Text>
             </View>
             <View style={[styles.stars, styles.info, ]}>
               <Stars count={Number(level)}/>

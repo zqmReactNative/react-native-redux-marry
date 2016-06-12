@@ -2,7 +2,7 @@
 // 商家
 
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ListView, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
+import { View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
 
 import FaceIcon from '../svg/FaceIcon';
 import NavigatorHeader from '../common/NavigatorHeader';
@@ -21,7 +21,7 @@ const screenHeight = Dimensions.get('window').height;
 
 
 const url_shoplist = "http://newapi.deyi.com/wedding/api/shoplist";
-const body_shoplist = {
+const url_request = {
   method: 'POST',
   body:JSON.stringify({
     "areaid": 0,
@@ -46,6 +46,7 @@ export default class Merchant extends Component {
       // transitionFromLeft
       fadeAnim: new Animated.Value(-screenWidth), // init opacity 0
       transitionFromRight: new Animated.Value(-screenWidth),
+      isRefreshing: true,
     };
   }
   componentDidMount() {
@@ -56,7 +57,40 @@ export default class Merchant extends Component {
     //     duration: 2000,    // Configuration
     //   },
     // ).start();             // Don't forget start!
+    this._onRefresh();
   }
+
+  _onRefresh = ()=>{
+    this._getNetworkData();
+  }
+
+  _getNetworkData = ()=>{
+
+    fetch(url_shoplist,url_request)
+    .then((response)=>response.json())
+    .then((responseData)=>{
+
+      resultsCache.shoplist = responseData.data.shoplist;
+      console.log("resultsCache.activity: "+resultsCache.shoplist);
+      // ERROR!错误!
+      // this.setState = {
+      //   isRefreshing:false,
+      //   dataSource:this.state.dataSource.cloneWithRows(["r 0", "r 1", "r2", "r3", "r4"]),
+      // };
+      this.setState({
+        isRefreshing:false,
+        dataSource:this.state.dataSource.cloneWithRows(resultsCache.shoplist),
+      });
+    })
+    .catch((error)=>{
+      resultsCache.shoplist = Array(2);
+      this.setState({
+        isRefreshing:false,
+        dataSource:this.state.dataSource.cloneWithRows(resultsCache.shoplist),
+      });
+    })
+  }
+
   _onPressLeft = ()=>{
     this.setState({
       isShowFilterView: !this.state.isShowFilterView,
@@ -90,7 +124,7 @@ export default class Merchant extends Component {
   }
 
   _renderRow = (rowData)=>{
-    return (<MerchantCell />);
+    return (<MerchantCell source={{uri:rowData.logo}} shopname={rowData.shopname} level={rowData.level} catname={rowData.catname} cases={rowData.cases} activities={rowData.activities}/>);
   }
   render() {
     return (
@@ -110,6 +144,13 @@ export default class Merchant extends Component {
           enableEmptySections = {true}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
+          refreshControl={
+            <RefreshControl
+              refreshing = {this.state.isRefreshing}
+              onRefresh={this._onRefresh}
+              tintColor='red'
+            />
+          }
           />
         {/*
         <Animated.View style={[styles.mask, {left: this.state.fadeAnim }]}>
