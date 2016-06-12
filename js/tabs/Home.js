@@ -86,7 +86,7 @@ export default class Home extends Component {
   }
   _renderActivityRow = (rowData) => {
     return (
-      <ActivityCell style={{}}/>
+      <ActivityCell style={{}} source={{uri:rowData.cover}} cover={rowData.cover} title={rowData.title} shopname={rowData.shopname} shopId={rowData.shopId}/>
     );
   }
   _renderMerchantRow = (rowData) => {
