@@ -12,6 +12,12 @@ import SplitView from '../common/SplitView';
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
+// 图库默认数据请求URL
+const url_album = "http://newapi.deyi.com/wedding/api/caselist";
+// 排序URL
+const url_sort = "http://newapi.deyi.com/wedding/api/casecondition";
+const kHostAlbumUrl = url_album;
+
 export default class Album extends Component {
 
   constructor(props) {
