@@ -17,18 +17,18 @@
 // 			function t(){
 // 				babelHelpers.classCallCheck(this,t);
 // 				var e=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(t).apply(this,arguments));
-// 				e._getChildren=function(t){
-// 					var n=e._categories[t],r=n.children.slice();
-// 					return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
-// 					e._ds.cloneWithRows(r)
-// 				},
-// 				e._category=function(t){
-// 					e.setState({active:t,children:e._getChildren(t)})
-// 				},
-// 				e._select=function(t,n){
-// 					e.setState({selected:n,children:e._getChildren(e.state.active)}),
-// 					e.props.onChange(t,n)
-// 				},
+// 				// e._getChildren=function(t){
+// 				// 	var n=e._categories[t],r=n.children.slice();
+// 				// 	return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
+// 				// 	e._ds.cloneWithRows(r)
+// 				// },
+// 				// e._category=function(t){
+// 				// 	e.setState({active:t,children:e._getChildren(t)})
+// 				// },
+// 				// e._select=function(t,n){
+// 				// 	e.setState({selected:n,children:e._getChildren(e.state.active)}),
+// 				// 	e.props.onChange(t,n)
+// 				// },
 // 				e._renderParentRow=function(t,n){
 // 					var r=n==e.state.active;
 // 					return o["default"].createElement(s["default"],{style:[f.parent,r&&f.active],contentContainerStyle:f.parentContainer,underlayColor:"rgba(255, 255, 255, 0.5)",onPress:e._category.bind(e,n)},
@@ -37,7 +37,8 @@
 // 				},
 // 				e._renderChildRow=function(t){
 // 					return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
-// 						o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))};
+// 						o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
+// 					};
 // 					var n=p["default"].cloneDeep(e.props.data);
 // 					e._ds=new i.ListView.DataSource({rowHasChanged:function(e,t){return e.id!==t.id}});
 // 					var r=0;
@@ -49,10 +50,29 @@
 import React, { Component, PropTypes } from 'react';
 import { Animated, View, StyleSheet, Text, ListView, Dimensions, PixelRatio, TouchableOpacity, TouchableHighlight } from 'react-native';
 
+import * as categories from "../data/categories";
+
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export default class SplitView extends Component {
+	// _getChildren = (index=0)=> {
+	// 	// var n=e._categories[t],r=n.children.slice();
+	// 	const item = categories[index];
+	// 	const children = item.slice();
+	// 	return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
+	// 	e._ds.cloneWithRows(r)
+	//
+	// 	item["default"] || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
+	//
+	// }
+	// _category=function(t){
+	// 	e.setState({active:t,children:e._getChildren(t)})
+	// }
+	// _select=function(t,n){
+	// 	e.setState({selected:n,children:e._getChildren(e.state.active)}),
+	// 	e.props.onChange(t,n)
+	// }
 	static propTypes = {
 		...View.propTypes,
 		datas: PropTypes.array,

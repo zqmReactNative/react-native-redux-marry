@@ -39,9 +39,10 @@ export default class Merchant extends Component {
     super(props);
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2)=>r1 !== r2,
-      isShowFilterView: false,
+
     });
     this.state = {
+      isShowFilterView: false,
       dataSource: ds.cloneWithRows([{}, {}]),
       // transitionFromLeft
       fadeAnim: new Animated.Value(-screenWidth), // init opacity 0
