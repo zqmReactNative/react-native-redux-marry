@@ -56,19 +56,19 @@ const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export default class SplitView extends Component {
-	// _getChildren = (index=0)=> {
-	// 	// var n=e._categories[t],r=n.children.slice();
-	// 	const item = categories[index];
-	// 	const children = item.slice();
-	// 	return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
-	// 	e._ds.cloneWithRows(r)
-	//
-	// 	item["default"] || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
-	//
-	// }
-	// _category=function(t){
-	// 	e.setState({active:t,children:e._getChildren(t)})
-	// }
+	_getChildren = (index=0)=> {
+		// var n=e._categories[t],r=n.children.slice();
+		const item = categories[index];
+		const children = item.slice();
+		// return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
+		// e._ds.cloneWithRows(r)
+		// this.ds.cloneWithRows(r)
+		return item["default"] || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
+
+	}
+	_category = (newAction)=>{
+		this.setState({active:newAction,children:this._getChildren(newAction)})
+	}
 	// _select=function(t,n){
 	// 	e.setState({selected:n,children:e._getChildren(e.state.active)}),
 	// 	e.props.onChange(t,n)
