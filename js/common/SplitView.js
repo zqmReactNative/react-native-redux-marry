@@ -66,13 +66,17 @@ export default class SplitView extends Component {
 		return item["default"] || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
 
 	}
-	_category = (newAction)=>{
-		this.setState({active:newAction,children:this._getChildren(newAction)})
+	_category = (index)=>{
+		this.setState({active:index,children:this._getChildren(index)})
 	}
-	// _select=function(t,n){
-	// 	e.setState({selected:n,children:e._getChildren(e.state.active)}),
-	// 	e.props.onChange(t,n)
-	// }
+	_select = (t, index)=>{
+		this.setState({
+			selected:index,
+			children:this._getChildren(this.state.active)
+		})
+		this.props.onChange(t, index)
+	}
+
 	static propTypes = {
 		...View.propTypes,
 		datas: PropTypes.array,
@@ -89,6 +93,8 @@ export default class SplitView extends Component {
 			rowHasChanged: (r1, r2) => r1!==r2,
 		});
 		this.state={
+			active: 0,
+			selected: 0,
 			dataSourceOfLeft: ds.cloneWithRows([{}, {}, {}]),
 			dataSourceOfRight: ds.cloneWithRows([{}, {}, {}, {}, {}, {}]),
 		}
