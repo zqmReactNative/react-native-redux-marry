@@ -50,6 +50,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Animated, View, StyleSheet, Text, ListView, Dimensions, PixelRatio, TouchableOpacity, TouchableHighlight } from 'react-native';
 
+import CommonCell from './CommonCell';
+
 import * as categories from "../data/categories";
 
 const screenWidth  = Dimensions.get('window').width;
@@ -76,11 +78,28 @@ export default class SplitView extends Component {
 		})
 		this.props.onChange(t, index)
 	}
-	_renderParentRow = (t,n)=>{
-		var r=n==this.state.active;
-		return o["default"].createElement(s["default"],{style:[styles.parent,r&&styles.active],contentContainerStyle:styles.parentContainer,underlayColor:"rgba(255, 255, 255, 0.5)",onPress:this._category.bind(this,n)},
-					 o["default"].createElement(i.View,{style:[f.activeContainer,r&&f.activeTextContainer]},
-						o["default"].createElement(i.Text,{style:[f.text,r&&f.activeText]},t.title)))
+	_renderParentRow = (t, index)=>{
+		var r = index===this.state.active;
+
+		return (
+			<CommonCell
+				style = { [styles.parent,r&&styles.active] }
+				contentContainerStyle = {styles.parentContainer}
+				underlayColor = "rgba(255, 255, 255, 0.5)"
+				onPress = {this._category.bind(this, index)}
+				renderCellContent={()=>{
+					return (
+						<View
+							style = {[styles.activeContainer,r&&styles.activeTextContainer]}
+							>
+							<Text style = {[styles.text,r&&styles.activeText]}>
+								{t.title}
+							</Text>
+						</View>
+					)
+				}}
+				/>
+		);
 	}
 
 	static propTypes = {
@@ -141,6 +160,7 @@ export default class SplitView extends Component {
 						style={styles.leftContainer}
 						dataSource={this.state.dataSourceOfLeft}
 						renderRow={this._renderLeftListViewRow}
+						// renderRow={this._renderParentRow.bind({title: "111"}, 2)}
 						/>
 
 					<ListView
