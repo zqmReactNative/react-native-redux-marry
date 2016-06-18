@@ -29,12 +29,12 @@
 // 				// 	e.setState({selected:n,children:e._getChildren(e.state.active)}),
 // 				// 	e.props.onChange(t,n)
 // 				// },
-// 				e._renderParentRow=function(t,n){
-// 					var r=n==e.state.active;
-// 					return o["default"].createElement(s["default"],{style:[f.parent,r&&f.active],contentContainerStyle:f.parentContainer,underlayColor:"rgba(255, 255, 255, 0.5)",onPress:e._category.bind(e,n)},
-// 						     o["default"].createElement(i.View,{style:[f.activeContainer,r&&f.activeTextContainer]},
-// 						     	o["default"].createElement(i.Text,{style:[f.text,r&&f.activeText]},t.title)))
-// 				},
+				// e._renderParentRow=function(t,n){
+				// 	var r=n==e.state.active;
+				// 	return o["default"].createElement(s["default"],{style:[f.parent,r&&f.active],contentContainerStyle:f.parentContainer,underlayColor:"rgba(255, 255, 255, 0.5)",onPress:e._category.bind(e,n)},
+				// 		     o["default"].createElement(i.View,{style:[f.activeContainer,r&&f.activeTextContainer]},
+				// 		     	o["default"].createElement(i.Text,{style:[f.text,r&&f.activeText]},t.title)))
+				// },
 // 				e._renderChildRow=function(t){
 // 					return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
 // 						o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
@@ -75,6 +75,12 @@ export default class SplitView extends Component {
 			children:this._getChildren(this.state.active)
 		})
 		this.props.onChange(t, index)
+	}
+	_renderParentRow = (t,n)=>{
+		var r=n==this.state.active;
+		return o["default"].createElement(s["default"],{style:[styles.parent,r&&styles.active],contentContainerStyle:styles.parentContainer,underlayColor:"rgba(255, 255, 255, 0.5)",onPress:this._category.bind(this,n)},
+					 o["default"].createElement(i.View,{style:[f.activeContainer,r&&f.activeTextContainer]},
+						o["default"].createElement(i.Text,{style:[f.text,r&&f.activeText]},t.title)))
 	}
 
 	static propTypes = {
