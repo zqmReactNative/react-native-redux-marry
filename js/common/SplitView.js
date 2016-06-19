@@ -35,17 +35,17 @@
 				// 		     o["default"].createElement(i.View,{style:[f.activeContainer,r&&f.activeTextContainer]},
 				// 		     	o["default"].createElement(i.Text,{style:[f.text,r&&f.activeText]},t.title)))
 				// },
-// 				e._renderChildRow=function(t){
-// 					return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
-// 						o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
-// 					};
-// 					var n=p["default"].cloneDeep(e.props.data);
-// 					e._ds=new i.ListView.DataSource({rowHasChanged:function(e,t){return e.id!==t.id}});
-// 					var r=0;
-// 					return p["default"].every(n,function(t,n){
-// 						var i=t.children,o=t.id;return o===e.props.selected?(r=n,!1):p["default"].find(i,{id:e.props.selected})?(r=n,!1):!0}),
-// 					e._categories=n,e.state={parent:n,children:e._getChildren(r),active:r,selected:e.props.selected},e}
-// 					return babelHelpers.inherits(t,e),babelHelpers.createClass(t,[{key:"render",value:function(){return o["default"].createElement(i.View,babelHelpers["extends"]({},this.props,{style:f.container}),o["default"].createElement(l["default"],{style:f.cateContainer,data:this.state.parent,renderRow:this._renderParentRow}),o["default"].createElement(i.ListView,{style:f.itemContainer,dataSource:this.state.children,renderRow:this._renderChildRow,pageSize:8}))}}]),t}(i.Component);h.displayName="FiltersCategory",r["default"]=h}),
+				// e._renderChildRow=function(t){
+				// 	return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
+				// 		o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
+				// 	};
+				// 	var n=p["default"].cloneDeep(e.props.data);
+				// 	e._ds=new i.ListView.DataSource({rowHasChanged:function(e,t){return e.id!==t.id}});
+				// 	var r=0;
+				// 	return p["default"].every(n,function(t,n){
+				// 		var i=t.children,o=t.id;return o===e.props.selected?(r=n,!1):p["default"].find(i,{id:e.props.selected})?(r=n,!1):!0}),
+				// 	e._categories=n,e.state={parent:n,children:e._getChildren(r),active:r,selected:e.props.selected},e}
+				// 	return babelHelpers.inherits(t,e),babelHelpers.createClass(t,[{key:"render",value:function(){return o["default"].createElement(i.View,babelHelpers["extends"]({},this.props,{style:f.container}),o["default"].createElement(l["default"],{style:f.cateContainer,data:this.state.parent,renderRow:this._renderParentRow}),o["default"].createElement(i.ListView,{style:f.itemContainer,dataSource:this.state.children,renderRow:this._renderChildRow,pageSize:8}))}}]),t}(i.Component);h.displayName="FiltersCategory",r["default"]=h}),
 
 import React, { Component, PropTypes } from 'react';
 import { Animated, View, StyleSheet, Text, ListView, Dimensions, PixelRatio, TouchableOpacity, TouchableHighlight } from 'react-native';
@@ -83,7 +83,7 @@ export default class SplitView extends Component {
 
 		return (
 			<CommonCell
-				style = { [styles.parent,r&&styles.active] }
+				style = { [styles.parent, r&&styles.active] }
 				contentContainerStyle = {styles.parentContainer}
 				underlayColor = "rgba(255, 255, 255, 0.5)"
 				onPress = {this._category.bind(this, index)}
@@ -97,6 +97,26 @@ export default class SplitView extends Component {
 							</Text>
 						</View>
 					)
+				}}
+				/>
+		);
+	}
+
+	_renderChildRow = (t)=>{
+		// return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
+		// 	o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
+		return (
+			<CommonCell
+				style = {styles.child}
+				underlayColor="rgba(255, 255, 255, 0.5)"
+				contentContainerStyle={styles.childContainer}
+				onPress={this._select.bind(this, t.title,t.id)}
+				renderCellContent={()=>{
+					<Text
+						style={[styles.text,this.state.selected==t.id&&styles.textSelected]}
+						>
+						{t.title}
+					</Text>
 				}}
 				/>
 		);
@@ -159,8 +179,8 @@ export default class SplitView extends Component {
 					<ListView
 						style={styles.leftContainer}
 						dataSource={this.state.dataSourceOfLeft}
-						renderRow={this._renderLeftListViewRow}
-						// renderRow={this._renderParentRow.bind({title: "111"}, 2)}
+						// renderRow={this._renderLeftListViewRow}
+						renderRow={this._renderParentRow.bind({title: "111"}, 2)}
 						/>
 
 					<ListView
@@ -189,9 +209,11 @@ const styles = StyleSheet.create({
 	},
 	leftContainer: {
 		width: screenWidth/2,
+		backgroundColor: 'white'
 	},
 	rightContainer: {
 		width: screenWidth/2,
+		backgroundColor: 'white'
 	},
 	cateContainer: {
 		flex:1,
@@ -202,11 +224,13 @@ const styles = StyleSheet.create({
 		backgroundColor:"#fff"
 	},
 	parent: {
-		height:39
+		height:39,
+		backgroundColor: 'white',
 	},
 	parentContainer: {
 		justifyContent:"center",
-		alignItems:"center"
+		alignItems:"center",
+		backgroundColor: 'white'
 	},
 	text: {
 		color:"#666",
