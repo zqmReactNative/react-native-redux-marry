@@ -58,14 +58,14 @@ const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export default class SplitView extends Component {
-	_getChildren = (index=0)=> {
+	_getChildren = (index)=> {
 		// var n=e._categories[t],r=n.children.slice();
 		const item = categories[index];
 		const children = item.slice();
 		// return n["default"]||r.unshift({id:n.id,title:"\u5168\u90e8"+n.title+"\u5546\u5bb6"}),
 		// e._ds.cloneWithRows(r)
 		// this.ds.cloneWithRows(r)
-		return item["default"] || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
+		return item || children.unshift({id: item.id, title:"全部"+item.title+"商家"})
 
 	}
 	_category = (index)=>{
@@ -76,9 +76,9 @@ export default class SplitView extends Component {
 			selected:index,
 			children:this._getChildren(this.state.active)
 		})
-		this.props.onChange(t, index)
+		this.props.onChange && this.props.onChange(t, index)
 	}
-	_renderParentRow = (t, index)=>{
+	_renderParentRow = (rowData, index)=>{
 		var r = index===this.state.active;
 
 		return (
@@ -93,7 +93,7 @@ export default class SplitView extends Component {
 							style = {[styles.activeContainer,r&&styles.activeTextContainer]}
 							>
 							<Text style = {[styles.text,r&&styles.activeText]}>
-								{t.title}
+								{rowData.title}
 							</Text>
 						</View>
 					)
@@ -102,7 +102,7 @@ export default class SplitView extends Component {
 		);
 	}
 
-	_renderChildRow = (t)=>{
+	_renderChildRow = (rowData)=>{
 		// return o["default"].createElement(s["default"],{style:f.child,underlayColor:"rgba(255, 255, 255, 0.5)",contentContainerStyle:f.childContainer,onPress:e._select.bind(e,t.title,t.id)},
 		// 	o["default"].createElement(i.Text,{style:[f.text,e.state.selected==t.id&&f.textSelected]},t.title))
 		return (
@@ -110,12 +110,12 @@ export default class SplitView extends Component {
 				style = {styles.child}
 				underlayColor="rgba(255, 255, 255, 0.5)"
 				contentContainerStyle={styles.childContainer}
-				onPress={this._select.bind(this, t.title,t.id)}
+				onPress={this._select.bind(this, rowData.title,rowData.id)}
 				renderCellContent={()=>{
 					<Text
-						style={[styles.text,this.state.selected==t.id&&styles.textSelected]}
+						style={[styles.text,this.state.selected==rowData.id&&styles.textSelected]}
 						>
-						{t.title}
+						{rowData.title}
 					</Text>
 				}}
 				/>
@@ -180,7 +180,8 @@ export default class SplitView extends Component {
 						style={styles.leftContainer}
 						dataSource={this.state.dataSourceOfLeft}
 						// renderRow={this._renderLeftListViewRow}
-						renderRow={this._renderParentRow.bind({title: "111"}, 2)}
+						// renderRow={this._renderParentRow.bind({title: "111"}, 2)}
+						renderRow={this._renderParentRow}
 						/>
 
 					<ListView
