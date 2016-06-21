@@ -26,14 +26,12 @@ export default class MerchantDetailCell extends Component {
 	}
 	render() {
 		const { style, imageStyle, textContainer, textStyle, title, source } = this.props;
-		_onPress = ()=>{
-			this.props.onPress && this.props.onPress();
-		}
+
 		return (
 			<TouchableOpacity
 				// underlayColor='white'
 				style={[styles.container, style]}
-				onPress={this._onPress}
+				onPress={this.props.onPress}
 			>
 				<Img style={[styles.image, imageStyle]} source={source} />
 

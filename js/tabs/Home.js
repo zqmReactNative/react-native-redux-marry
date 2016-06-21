@@ -86,12 +86,28 @@ export default class Home extends Component {
   }
   _renderActivityRow = (rowData) => {
     return (
-      <ActivityCell style={{}} source={{uri:rowData.cover}} cover={rowData.cover} title={rowData.title} shopname={rowData.shopname} shopId={rowData.shopId}/>
+      <ActivityCell
+        style={{}}
+        source={{uri:rowData.cover}}
+        cover={rowData.cover}
+        title={rowData.title}
+        shopname={rowData.shopname}
+        shopId={rowData.shopid}
+        onPress={(shopid)=>{alert(shopid)}}
+        />
     );
   }
   _renderMerchantRow = (rowData) => {
     return (
-      <MerchantDetailCell style={{width: 80, height: 100, padding: 5}} textContainer={{ height: 30}} textStyle={{fontSize:12 }} imageStyle={{width: 70, height: 70, borderRadius: 3}} source={{uri:rowData.logo}} title={rowData.shopname}/>
+      <MerchantDetailCell
+        style={{width: 80, height: 100, padding: 5}}
+        textContainer={{ height: 30}}
+        textStyle={{fontSize:12 }}
+        imageStyle={{width: 70, height: 70, borderRadius: 3}}
+        source={{uri:rowData.logo}}
+        title={rowData.shopname}
+        onPress={()=>{this.props.navigator.push({routeId: 'MerchantDetail', shopid: rowData.shopid, shopname: rowData.shopname})}}
+        />
     );
   }
   _renderHeader = ()=> {

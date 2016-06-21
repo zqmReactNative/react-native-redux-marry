@@ -42,7 +42,7 @@ export default class ActivityCell extends Component{
 		const { source, cover, title, shopname, shopId } = this.props;
     return (
       <View style={[]}>
-        <TouchableOpacity underlayColor="#ebebeb" >
+        <TouchableOpacity underlayColor="#ebebeb" onPress={this._didSelectedCell}>
 					<View style={[{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center'}, styles.container, styles.gap ]}>
 						<View style={styles.cover}>
 							{/*<Img source={{uri:'http:\/\/jiehun.deyi.com\/uploads\/2016\/02\/16\/cc985b361823f9669574e7302ddac0c4.jpg'}}/>*/}
