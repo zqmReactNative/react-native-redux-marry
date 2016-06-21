@@ -1,7 +1,7 @@
 // DetailHeader.js
 // 详情页头部视图
 
-import React, { Component } from "react";
+import React, { Component, PropTypes } from "react";
 
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import Stars from '../svg/Stars';
@@ -11,14 +11,27 @@ const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 export default class DetailHeader extends Component {
+  static propTypes = {
+    ...View.propTypes,
+    source: Image.propTypes.source,
+    title: PropTypes.string,
+    detailTitle: PropTypes.string,
+    level:PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }
+  static defaultProps = {
+    level:0,
+    title:"",
+    detailTitle:"",
+  };
   render() {
+    const { source, title, detailTitle } = this.props;
     return (
       <View style={styles.container}>
-      	<Img style={styles.image} source={require('../../images/404.png')}/>
+      	<Img style={styles.image} source={source}/>
       	<View style={styles.rightContainer}>
-	      	<Text numberOfLines={1} style={styles.title}>花漾婚礼会馆</Text>
+	      	<Text numberOfLines={1} style={styles.title}>{title}</Text>
 	      	<Stars count={3}/>
-	      	<Text numberOfLines={2} style={styles.detailTitle}>武汉市江岸区沿江大道江景大厦A座21楼武汉市江岸区沿江大道江景大厦A座21楼</Text>
+	      	<Text numberOfLines={2} style={styles.detailTitle}>{detailTitle}</Text>
       	</View>
       </View>
     );
