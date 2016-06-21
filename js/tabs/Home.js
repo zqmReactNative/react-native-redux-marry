@@ -106,7 +106,7 @@ export default class Home extends Component {
         imageStyle={{width: 70, height: 70, borderRadius: 3}}
         source={{uri:rowData.logo}}
         title={rowData.shopname}
-        onPress={()=>{this.props.navigator.push({routeId: 'MerchantDetail', shopid: rowData.shopid, shopname: rowData.shopname})}}
+        onPress={()=>{this.props.navigator.push({routeId: 'MerchantDetail', params: {source:{uri:rowData.logo}, level: rowData.level, shopid: rowData.shopid, shopname: rowData.shopname} })}}
         />
     );
   }

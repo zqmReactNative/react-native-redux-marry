@@ -22,15 +22,16 @@ export default class DetailHeader extends Component {
     level:0,
     title:"",
     detailTitle:"",
-  };
+  }
+
   render() {
-    const { source, title, detailTitle } = this.props;
+    const { source, title, detailTitle, level } = this.props;
     return (
       <View style={styles.container}>
       	<Img style={styles.image} source={source}/>
       	<View style={styles.rightContainer}>
 	      	<Text numberOfLines={1} style={styles.title}>{title}</Text>
-	      	<Stars count={3}/>
+	      	<Stars count={this.props.level}/>
 	      	<Text numberOfLines={2} style={styles.detailTitle}>{detailTitle}</Text>
       	</View>
       </View>

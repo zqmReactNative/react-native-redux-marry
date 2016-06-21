@@ -132,7 +132,7 @@ export default class Marry extends Component {
     );
   };
 
-  _renderTabNavigator = (navigator)=>{
+  _renderTabNavigator = (route, navigator)=>{
     var tabBarStyle = {};
     var sceneStyle = {};
 
@@ -150,7 +150,7 @@ export default class Marry extends Component {
     //   </TabNavigator>
     // );
     return (
-      <TabNavigator navigator={navigator} ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
+      <TabNavigator {...route.params} navigator={navigator} ref={(tabbar)=>global.tabbar = tabbar} tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
         {this._renderTabItem('推荐', homeTabTag,     ()=>this._tabItemIcon(false, homeSVGPaths),     ()=>this._tabItemIcon(true, homeSVGPaths),     <Home navigator={navigator}></Home>)}
         {this._renderTabItem('图库', albumTabTag,    ()=>this._tabItemIcon(false, albumSVGPaths),    ()=>this._tabItemIcon(true, albumSVGPaths),    <Album navigator={navigator}></Album>)}
         {this._renderTabItem('商家', merchantTabTag, ()=>this._tabItemIcon(false, merchantSVGPaths), ()=>this._tabItemIcon(true, merchantSVGPaths), <Merchant navigator={navigator}></Merchant>)}
@@ -160,24 +160,28 @@ export default class Marry extends Component {
 
   _renderScene = (route, navigator)=> {
     console.log("routeId : "+route.routeId);
+    const Comp = route.component;
+    if (Comp) {
+      return <Comp {...route.params} navigator={navigator}/>
+    }
     switch (route.routeId) {
       case "TabNavigator":
         console.log("TabNavigator");
-        return (this._renderTabNavigator(navigator));
+        return (this._renderTabNavigator(route, navigator));
         break;
       case homeTabTag:
         console.log("homeTabTag");
-        return (<Home navigator={navigator}/>);
+        return (<Home {...route.params} navigator={navigator}/>);
         break;
       case albumTabTag:
         console.log("albumTabTag");
-        return (<Album navigator={navigator}/>);
+        return (<Album {...route.params} navigator={navigator}/>);
         break;
       case "MerchantDetail":
-        return (<MerchantDetail navigator={navigator}/>);
+        return (<MerchantDetail {...route.params} navigator={navigator}/>);
         break;
       default:
-        return (this._renderTabNavigator(navigator));
+        return (this._renderTabNavigator(route, navigator));
     }
 
   }
