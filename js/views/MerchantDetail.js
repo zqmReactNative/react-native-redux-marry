@@ -8,7 +8,7 @@ import NavigatorHeader from "../common/NavigatorHeader";
 import DetailHeader from "../components/DetailHeader";
 import ScrollableTabView, { DefaultTabBar, ScrollableTabBar } from "react-native-scrollable-tab-view";
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
-
+import AlbumCell from '../Cell/AlbumCell';
 // 图库默认数据请求URL
 const url_album = "http://newapi.deyi.com/wedding/api/caselist";
 // 排序URL
@@ -65,26 +65,24 @@ export default class MerchantDetail extends Component {
     .then((response)=>response.json())
     .then((responseData)=>{
 
-      // resultsCache.albumlist = responseData.data.list;
-      // console.log("resultsCache.albumlist: "+resultsCache.albumlist);
+      resultsCache.albumlist = responseData.data.list;
+      console.log("resultsCache.albumlist: "+resultsCache.albumlist);
 
       this.setState({
         isRefreshing:false,
-        // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
+        dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
       });
     })
     .catch((error)=>{
       resultsCache.albumlist = Array(2);
       this.setState({
         isRefreshing:false,
-        // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
+        dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
       });
     })
   }
   _renderAlbumRow = (rowData)=>{
-    return (
-      <MerchantDetailCell />
-    );
+    return (<AlbumCell cellType="tall" title={rowData.subject} detailTitle={rowData.shopname} source={{uri:rowData.cover}}/>);
   }
   _renderActivityRow = (rowData)=>{
     return (
@@ -108,9 +106,10 @@ export default class MerchantDetail extends Component {
   render() {
     return (
       <View style={{flex: 1, backgroundColor: 'rgb(247, 247, 247)'}}>
-        <NavigatorHeader title={this.state.shopname} onBackClick={this.props.navigator.pop()}/>
+        <NavigatorHeader title={this.state.shopname} onBackClick={this.props.navigator.pop}/>
 
         <ListView
+          contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
           style={{marginBottom: 49}}
           refreshControl={
             <RefreshControl

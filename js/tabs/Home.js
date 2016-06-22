@@ -143,7 +143,7 @@ export default class Home extends Component {
     //     </Text>
     //   </View>
     // );
-    return (<AlbumCell cellType="wide" title={rowData.subject} detailTitle={rowData.shopname} source={{uri:rowData.cover}}/>);
+    return (<AlbumCell cellType="tall" title={rowData.subject} detailTitle={rowData.shopname} source={{uri:rowData.cover}}/>);
   }
   _renderSeparator = (sectionID, rowID, adjacentRowHighlighted)=>{
     return (<View key={sectionID+rowID} style={{backgroundColor: 'red', height: 10}}></View>);
