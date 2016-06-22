@@ -65,20 +65,20 @@ export default class MerchantDetail extends Component {
     .then((response)=>response.json())
     .then((responseData)=>{
 
-      resultsCache.albumlist = responseData.data.list;
-      console.log("resultsCache.albumlist: "+resultsCache.albumlist);
+      // resultsCache.albumlist = responseData.data.list;
+      // console.log("resultsCache.albumlist: "+resultsCache.albumlist);
 
-      // this.setState({
-      //   // isRefreshing:false,
-      //   // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
-      // });
+      this.setState({
+        isRefreshing:false,
+        // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
+      });
     })
     .catch((error)=>{
       resultsCache.albumlist = Array(2);
-      // this.setState({
-      //   // isRefreshing:false,
-      //   // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
-      // });
+      this.setState({
+        isRefreshing:false,
+        // dataSourceOfAlbum:this.state.dataSourceOfAlbum.cloneWithRows(resultsCache.albumlist),
+      });
     })
   }
   _renderAlbumRow = (rowData)=>{
