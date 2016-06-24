@@ -10,8 +10,8 @@ export function getXXXX(argument) {
 	};
 	let url = `http://newapi.deyi.com/wedding/api/index`;
 	return requestService.get(url)
-	.then(filterData)
-	.then(data=>{
-
+	.then((response)=>response.json())
+	.then((responseData)=>{
+		return responseData
 	})
 }
