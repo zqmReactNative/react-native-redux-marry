@@ -709,8 +709,8 @@
    }
 
  });
-
- AppRegistry.registerComponent('Marry', () => Hello);
+import App from './app';
+ AppRegistry.registerComponent('Marry', () => App);
 
 // import Marry from './js/marry';
 // AppRegistry.registerComponent('Marry', () => Hello);
