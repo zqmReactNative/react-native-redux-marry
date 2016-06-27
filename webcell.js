@@ -16,6 +16,7 @@ const kScreenHeight = Dimensions.get('window').height;
 const CellType = {
   Img_Text_4 : "Img_Text_4",
   Text_5 : "Text_5",
+  Text_Blue_5 : "Text_Blue_5",
   Text_GrayBg_4 : "Text_GrayBg_4",
   Text_Blue_4 : "Text_Blue_4",
   Img_Text_5 : "Img_Text_5"
@@ -47,21 +48,33 @@ export default class WebView extends Component {
       case CellType.Text_5:
         containerStyle = {width: kScreenWidth/5, height: 30, backgroundColor: '#e7e7e7',}
         break;
+      case CellType.Text_Blue_5:
+        containerStyle = {width: kScreenWidth/5, height: 30, backgroundColor: '#e7e7e7',}
+        titleStyle = {flex: 1, fontSize: 12, textAlign: 'center', backgroundColor: 'red', color: 'blue'}
+        break;
       case CellType.Text_GrayBg_4:
-
+        containerStyle = {padding: 3, width: kScreenWidth/4, height: 30, backgroundColor: 'white'}
+        buttonStyle = {flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#e7e7e7'}
         break;
       case CellType.Text_Blue_4:
 
         break;
       case CellType.Img_Text_5:
-
+        containerStyle = {width: kScreenWidth/5, height: 60, backgroundColor: 'white'}
+        buttonStyle = {flex: 1, padding: 5, justifyContent: 'center', alignItems: 'center'}
+        imageStyle = styles.imageTopStyle
         break;
       default:
 
     }
+    _onPress = ()=> {
+
+    }
     return (
       <View style={containerStyle}>
-        <TouchableOpacity style={buttonStyle}>
+        <TouchableOpacity
+          style={buttonStyle}
+          onPress={this._onPress}>
           {source && <Image source={source} style={imageStyle}/>}
           <Text style={titleStyle}>
             {title}
@@ -89,11 +102,16 @@ const styles = StyleSheet.create({
     // paddingRight: 5,
     marginRight: 5,
   },
-  imageTopStyle: {},
+  imageTopStyle: {
+    width: 30,
+    height: 30,
+    marginBottom: 5,
+  },
   titleStyle: {
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
+    backgroundColor: 'red',
   },
   titleBlueStyle: {},
   buttonStyle: {
@@ -102,11 +120,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: 'white',
     flexDirection: 'row',
     // marginLeft: 5,
     // marginRight: 5,
-    padding: 10,
+    padding: 8,
   },
   buttonGrayBgStyle: {
     padding: 5,
