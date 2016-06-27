@@ -50,7 +50,7 @@ export default class WebView extends Component {
         break;
       case CellType.Text_Blue_5:
         containerStyle = {width: kScreenWidth/5, height: 30, backgroundColor: '#e7e7e7',}
-        titleStyle = {flex: 1, fontSize: 12, textAlign: 'center', backgroundColor: 'red', color: 'blue'}
+        titleStyle = {flex: 1, fontSize: 12, textAlign: 'center', color: 'blue'}
         break;
       case CellType.Text_GrayBg_4:
         containerStyle = {padding: 3, width: kScreenWidth/4, height: 30, backgroundColor: 'white'}
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   titleBlueStyle: {},
   buttonStyle: {

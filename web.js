@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   },
   listView: {
     // flex: 1,
-    backgroundColor: 'pink'
+    backgroundColor: 'white'
   },
   contentContainerStyle: {
     flexDirection: 'row',/*设置横向*/
