@@ -35,6 +35,14 @@ export default class WebView extends Component {
     cellType: CellType.Text_5,
   }
 
+  _onPress = ()=> {
+    console.log("_onPress");
+    const {onPress} = this.props;
+    if (onPress) {
+      onPress();
+    }
+  }
+
   render() {
     let containerStyle = styles.container;
     let buttonStyle = styles.buttonStyle;
@@ -50,7 +58,7 @@ export default class WebView extends Component {
         break;
       case CellType.Text_Blue_5:
         containerStyle = {width: kScreenWidth/5, height: 30, backgroundColor: '#e7e7e7',}
-        titleStyle = {flex: 1, fontSize: 12, textAlign: 'center', color: 'blue'}
+        titleStyle = {flex: 1, fontSize: 12, textAlign: 'center', color: 'rgb(14, 140, 226)'}
         break;
       case CellType.Text_GrayBg_4:
         containerStyle = {padding: 3, width: kScreenWidth/4, height: 30, backgroundColor: 'white'}
@@ -67,14 +75,14 @@ export default class WebView extends Component {
       default:
 
     }
-    _onPress = ()=> {
 
-    }
     return (
       <View style={containerStyle}>
         <TouchableOpacity
+          // style={[buttonStyle, {underlayColor: 'rgb(14, 140, 226)'}]}
           style={buttonStyle}
-          onPress={this._onPress}>
+          onPress={this._onPress}
+          >
           {source && <Image source={source} style={imageStyle}/>}
           <Text style={titleStyle}>
             {title}

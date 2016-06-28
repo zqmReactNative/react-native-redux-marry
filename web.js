@@ -5,12 +5,14 @@ import ReactNative, {
   StyleSheet,
   ListView,
   Text,
+  TextInput,
   Image,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
 
 import WebCell from './webcell';
+import WebDetail from './webdetail';
 
 const kScreenWidth  = Dimensions.get('window').width;
 const kScreenHeight = Dimensions.get('window').height;
@@ -25,9 +27,15 @@ const CellType = {
   Img_Text_5 : "Img_Text_5"
 }
 
+const SectionHeaderType = {
+  Search : "Search",
+  Normal : "Normal",
+}
+
 const webs = [
   {
 		title : "",
+    type: SectionHeaderType.Search,
 		list:[
 			{img:"./Img/baidu", title: "百度", url: "https://m.baidu.com/?from=1014413j", cellType: CellType.Img_Text_4},
 			{img:"./Img/baidu", title: "新浪", url: "http://sina.cn", cellType: CellType.Img_Text_4},
@@ -57,7 +65,9 @@ const webs = [
 	},
 
   {
-    title : "",
+    title : "新闻资讯",
+    moreUrl: "http://www.w4000148590.com/htmls/mlist_63.html",
+    type: SectionHeaderType.Normal,
     list:[
       {img:"", title: "网易", url: "http://www.163.com", cellType: CellType.Text_GrayBg_4},
       {img:"", title: "凤凰军事", url: "http://imil.ifeng.com/index.shtml", cellType: CellType.Text_GrayBg_4},
@@ -92,7 +102,9 @@ const webs = [
     ],
   },
   {
-    title : "",
+    title : "生活助手",
+    moreUrl: "http://www.w4000148590.com/htmls/mlist_64.html",
+    type: SectionHeaderType.Normal,
     list:[
       {img:"./Img/baidu", title: "移动", url: "http://wap.10086.cn/index.html", cellType: CellType.Img_Text_5},
       {img:"./Img/baidu", title: "天气", url: "http://uc.weathercn.com", cellType: CellType.Img_Text_5},
@@ -128,7 +140,9 @@ const webs = [
   },
 
   {
-    title : "",
+    title : "网购商城",
+    moreUrl: "http://www.w4000148590.com/htmls/mlist_65.html",
+    type: SectionHeaderType.Normal,
     list:[
       {img:"", title: "淘宝", url: "https://m.taobao.com/#index", cellType: CellType.Text_GrayBg_4},
       {img:"", title: "天猫", url: "https://www.tmall.com", cellType: CellType.Text_GrayBg_4},
@@ -165,7 +179,9 @@ const webs = [
   },
 
   {
-    title : "",
+    title : "休闲娱乐",
+    moreUrl: "http://www.w4000148590.com/htmls/mlist_66.html",
+    type: SectionHeaderType.Normal,
     list:[
       {img:"", title: "优酷", url: "http://www.youku.com", cellType: CellType.Text_GrayBg_4},
       {img:"", title: "奇艺", url: "http://www.iqiyi.com", cellType: CellType.Text_GrayBg_4},
@@ -214,6 +230,7 @@ export default class WebView extends Component {
     });
 
     this.state = {
+      text: "",
       dataSource: ds.cloneWithRows([]),
     };
   }
@@ -221,19 +238,89 @@ export default class WebView extends Component {
     let img = rowData.img;
     return (
       <WebCell
+        onPress={()=>{
+          const {navigator} = this.props;
+          if (navigator) {
+            navigator.push({
+              component: WebDetail,
+              params:{
+                url: rowData.url,
+              }
+            });
+          }
+        }}
         cellType={rowData.cellType}
         title={rowData.title}
         /*source={{uri: rowData.img}}*/
+        /* TODO: 把图片资源放到iOS工程, 使用 source={rowData.img? {uri: rowData.img}: null}替换下面一句 */
         source={rowData.img? require('./Img/baidu.png'): null}
         />
     );
   }
-  _renderSectionHeader = ()=> {
+  _renderSectionHeader = (item)=> {
+    if (item.type === SectionHeaderType.Search) {
+      return (
+        <View style={{height: 100, width: kScreenWidth, backgroundColor: 'rgb(5, 140, 226)'}}>
+          <View style={{height: 64, width: kScreenWidth, justifyContent: 'space-between', alignItems: 'center'}}>
+            {/*TODO:bar具体内容填写在此处*/}
+          </View>
+          <View style={{flex: 1, paddingLeft: 10, paddingRight: 10, paddingBottom: 10, paddingTop: 0, justifyContent: 'center'}}>
+            <View style={{flex: 1, borderRadius: 5, paddingLeft: 5, paddingRight: 5, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+              <Image
+                style={{width: 20, height: 20}}
+                // TODO: 搜索按钮的图片
+                /*source={require('')}*/
+                />
+              <TextInput
+                placeholder="输入关键字"
+                style={{flex: 1, fontSize: 14,}}
+                onChangeText={(text) => this.setState({text})}
+                />
+              <Text
+                style={{color: 'rgb(5, 140, 226)'}}
+                onPress={()=>{
+                  const {navigator} = this.props;
+                  if (navigator) {
+                    navigator.push({
+                      component: WebDetail,
+                      params:{
+                        url: "http://m.baidu.com/s?wd="+this.state.text,
+                      }
+                    });
+                  }
+                }}
+                >
+                搜索
+              </Text>
+            </View>
+          </View>
+        </View>
+      );
+    }
     return (
       <View
         style={styles.sectionHeader}>
-        <Text>头标题</Text>
-        <Text onPress={()=>alert("点击了更多")}>更多</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            style={{width: 20, height: 20}}
+            /*source={require('')}*/
+            />
+          <Text style={{color: 'rgb(14, 140, 226)'}}>{item.title}</Text>
+        </View>
+        <Text
+          onPress={()=>{
+            const {navigator} = this.props;
+            if (navigator) {
+              navigator.push({
+                component: WebDetail,
+                params:{
+                  url: item.moreUrl,
+                }
+              });
+            }
+          }}>
+          更多
+        </Text>
       </View>
     );
   }
@@ -248,7 +335,7 @@ export default class WebView extends Component {
           (item, index)=>{
             return (
               <View key={"webs_index_"+index}>
-                {this._renderSectionHeader()}
+                {this._renderSectionHeader(item)}
                 <ListView
                   initialListSize={50}
                   style={styles.listView}
@@ -287,7 +374,7 @@ const styles = StyleSheet.create({
   },
   listView: {
     // flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   contentContainerStyle: {
     flexDirection: 'row',/*设置横向*/
@@ -301,6 +388,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#e7e7e7',
   },
 });

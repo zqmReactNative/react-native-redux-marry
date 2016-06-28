@@ -24,8 +24,8 @@
  const screenHeight = Dimensions.get('window').height;
 
 
-// import App from './app';
-// AppRegistry.registerComponent('Marry', () => App);
+import App from './app';
+AppRegistry.registerComponent('Marry', () => App);
 
-import Marry from './js/marry';
-AppRegistry.registerComponent('Marry', () => Marry);
+// import Marry from './js/marry';
+// AppRegistry.registerComponent('Marry', () => Marry);
