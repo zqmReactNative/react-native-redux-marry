@@ -2,7 +2,7 @@
 // 商品详情
 
 import React, { Component } from "react";
-import { ScrollView, View, Text, Image, StyleSheet, ListView, RefreshControl, TouchableOpacity } from "react-native";
+import { InteractionManager, ScrollView, View, Text, Image, StyleSheet, ListView, RefreshControl, TouchableOpacity } from "react-native";
 
 import NavigatorHeader from "../common/NavigatorHeader";
 import DetailHeader from "../components/DetailHeader";
@@ -39,17 +39,21 @@ export default class MerchantDetail extends Component {
       shopname: "",
       source: null,
       isRefreshing: true,
+      renderPlaceholderOnly: true,
       dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}]),
       dataSourceOfActivity: ds.cloneWithRows([{}, {}, {}, {}]),
     };
   }
   componentDidMount() {
-    this.setState({
-      shopid: this.props.shopid,
-      shopname: this.props.shopname,
-      source: this.props.source,
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        renderPlaceholderOnly: false,
+        shopid: this.props.shopid,
+        shopname: this.props.shopname,
+        source: this.props.source,
+      });
+      this._onRefresh();
     });
-    this._onRefresh();
     // this._getNetworkData()
   }
   _onRefresh = ()=> {
