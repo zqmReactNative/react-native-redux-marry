@@ -54,13 +54,9 @@ export default class MerchantDetail extends Component {
       });
       this._onRefresh();
     });
-    // this._getNetworkData()
   }
   _onRefresh = ()=> {
-    this._getNetworkData()
-    // this.setState({
-    //   isRefreshing:false
-    // })
+    this._getNetworkData();
     console.log(this.state.isRefreshing);
   }
   _getNetworkData = ()=>{
