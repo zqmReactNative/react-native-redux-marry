@@ -21,7 +21,7 @@ export default class WebDetail extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.bar}>
-          <View style={{height: 20, width: kScreenWidth}}>
+          <View style={{height: 20, width: kScreenWidth, backgroundColor: 'pink'}}>
           </View>
           <View style={{flex: 1, width: kScreenWidth, paddingLeft: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
             <Text
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   bar: {
     height: 64,
     alignItems: 'center',
+    // justifyContent: 'space-between',
     backgroundColor: 'rgb(14, 140, 226)',
   },
   webview: {
