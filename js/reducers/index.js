@@ -6,7 +6,7 @@ import merchant from './merchant';
 import albumDetail from './albumDetail';
 import merchantDetail from './merchantDetail';
 
-export default combineReducers({
+export default rootReducer = combineReducers({
 	home,
 	album,
 	merchant,

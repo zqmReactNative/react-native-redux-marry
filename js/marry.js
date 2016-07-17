@@ -162,7 +162,7 @@ export default class Marry extends Component {
     console.log("routeId : "+route.routeId);
     const Comp = route.component;
     if (Comp) {
-      return <Comp {...route.params} navigator={navigator}/>
+      return <Comp {...this.props} {...route.params} navigator={navigator}/>
     }
     switch (route.routeId) {
       case "TabNavigator":

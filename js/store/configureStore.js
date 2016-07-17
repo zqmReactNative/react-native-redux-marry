@@ -1,9 +1,14 @@
-// configureStore.js
-
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import rootReducer from '../reducers';
 
+const middlewares = [
+  thunkMiddleware,
+];
 
-import reducers from '../reducers';
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 
-const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
+export default function configureStore(initialStore) {
+  const store = createStoreWithMiddleware(rootReducer, initialStore);
+  return store;
+}
