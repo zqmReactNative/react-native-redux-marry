@@ -12,6 +12,9 @@ const {
     Rectangle,
 } = ReactNativeART;
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as Actions from './actions';
 
 
 import Home from './tabs/Home';
@@ -216,3 +219,18 @@ const styles = StyleSheet.create({
     color:'#ff5942',
   },
 });
+
+
+// function mapStateToProps(state) {
+//   return {
+//     home: state.home,
+//   }
+// }
+//
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: bindActionCreators(Actions, dispatch)
+//   }
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(Marry)

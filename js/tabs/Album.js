@@ -3,12 +3,15 @@
 
 import React, { Component, PropTypes } from 'react';
 import { View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
+import { connect } from 'react-redux';
 
 import FaceIcon from '../svg/FaceIcon';
 import NavigatorHeader from '../common/NavigatorHeader';
 import FilterHeaderView from '../views/FilterHeaderView';
 import SplitView from '../common/SplitView';
 import AlbumCell from '../Cell/AlbumCell';
+
+import { fetchAlbumData } from '../actions/album';
 
 import * as categories from "../data/categories";
 import * as sortBys from "../data/sortBys";
@@ -34,7 +37,7 @@ let resultsCache = {
   albumlist:[],
 };
 
-export default class Album extends Component {
+class Album extends Component {
 
   constructor(props) {
     super(props);
@@ -44,11 +47,12 @@ export default class Album extends Component {
     this.state = {
       isShowFilterView: false,
       isRefreshing: true,
-      dataSource: ds.cloneWithRows([{}, {}]),
+      // dataSource: ds.cloneWithRows([{}, {}]),
       // transitionFromLeft
       fadeAnim: new Animated.Value(-screenWidth), // init opacity 0
       transitionFromRight: new Animated.Value(-screenWidth),
     };
+    this.dataSource = ds;
   }
 
   componentDidMount() {
@@ -56,7 +60,9 @@ export default class Album extends Component {
   }
 
   _onRefresh = ()=>{
-    this._getNetworkData();
+    // this._getNetworkData();
+    const { dispatch } = this.props;
+    dispatch(fetchAlbumData());
   }
 
   _getNetworkData = ()=>{
@@ -91,6 +97,8 @@ export default class Album extends Component {
   }
 
   render() {
+    console.log("render Album");
+    const {album} = this.props;
     return (
       <View style={styles.container}>
         <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} title={"图库"}/>
@@ -102,11 +110,11 @@ export default class Album extends Component {
           style={{position: 'absolute', top: 64+40, bottom: 0, left: 0, right: 0,}}
           contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
           enableEmptySections = {true}
-          dataSource={this.state.dataSource}
+          dataSource={this.dataSource.cloneWithRows(album.list)}
           renderRow={this._renderRow}
           refreshControl={
             <RefreshControl
-              refreshing = {this.state.isRefreshing}
+              refreshing = {album.isRefreshing}
               onRefresh={this._onRefresh}
               tintColor='red'
             />
@@ -126,3 +134,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
+
+
+function mapStateToProps(state) {
+  const { album } = state;
+  return {
+    album
+  }
+}
+
+export default connect(mapStateToProps)(Album)

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Dimensions, View, StyleSheet, Text, ListView, ScrollView, RefreshControl, PixelRatio } from 'react-native';
+import { connect } from 'react-redux';
 
 import NavigatorHeader from '../common/NavigatorHeader';
 import FaceIcon from '../svg/FaceIcon';
@@ -11,6 +12,8 @@ import SectionHeaderView from '../common/SectionHeaderView';
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
 import AlbumCell from '../Cell/AlbumCell';
 import ActivityCell from '../Cell/ActivityCell';
+
+import {fetchHomeData} from '../actions/home';
 
 const screenWidth  = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -28,7 +31,7 @@ const url_request = {
   }),
 }
 
-export default class Home extends Component {
+class Home extends Component {
 
   constructor(props) {
     super(props);
@@ -42,12 +45,18 @@ export default class Home extends Component {
       dataSourceOfMerchants: ds.cloneWithRows([{}, {}, {}]),
       dataSourceOfAlbum: ds.cloneWithRows([{}, {}, {}, {}, {}, {}, {}]),
     };
+    this.dataSourceOfActivities = ds;
+    this.dataSourceOfMerchants = ds;
+    this.dataSourceOfAlbum = ds;
+
   }
   componentDidMount() {
     this._onRefresh();
   }
   _onRefresh = ()=>{
-    this._getNetworkData();
+    // this._getNetworkData();
+    const {dispatch} = this.props;
+    dispatch(fetchHomeData());
   };
   _getNetworkData = ()=>{
 
@@ -111,13 +120,14 @@ export default class Home extends Component {
     );
   }
   _renderHeader = ()=> {
+    const {home} = this.props;
     return (
       <View style={{width: screenWidth}}>
         <Channels style={{ backgroundColor: 'white'}} navigator={this.props.navigator}/>
         <ListView
           style={{marginTop: 15, backgroundColor: 'white'}}
           renderRow={this._renderActivityRow}
-          dataSource={this.state.dataSourceOfActivities}
+          dataSource={this.dataSourceOfActivities.cloneWithRows(home.activity)}
           renderHeader={()=><SectionHeaderView title="优惠活动"/>}
           enableEmptySections={true}
           />
@@ -126,7 +136,7 @@ export default class Home extends Component {
           style={{backgroundColor: 'white'}}
           horizontal={true}
           renderRow={this._renderMerchantRow}
-          dataSource={this.state.dataSourceOfMerchants}
+          dataSource={this.dataSourceOfMerchants.cloneWithRows(home.shop)}
           enableEmptySections={true}
           />
         <View style={{backgroundColor:'white', marginTop: 15, height: 30, borderBottomWidth: 1/PixelRatio.get(), borderBottomColor: 'red'}}>
@@ -150,19 +160,20 @@ export default class Home extends Component {
   }
   render() {
     console.log('render Home');
+    const {home, actions} = this.props;
     return (
       <View style={styles.container}>
         <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} titleView={()=><Logo/>}/>
         <ListView
           contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
-          dataSource={this.state.dataSourceOfAlbum}
+          dataSource={this.dataSourceOfAlbum.cloneWithRows(home.cases)}
           renderHeader={this._renderHeader}
           renderRow={this._renderAlbumRow}
           enableEmptySections={true}
           // renderSeparator={this._renderSeparator}
           refreshControl={
             <RefreshControl
-              refreshing = {this.state.isRefreshing}
+              refreshing = {home.isRefreshing}
               onRefresh={this._onRefresh}
               tintColor='red'
             />
@@ -186,3 +197,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
 });
+
+function mapStateToProps(state) {
+  const { home } = state;
+  return {
+    home
+  }
+}
+
+export default connect(mapStateToProps)(Home)
