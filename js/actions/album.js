@@ -25,7 +25,7 @@ function requestAlbumError(error) {
 }
 
 
-export function fetchAlbumData(page=1, areaid="", catid: "123") {
+export function fetchAlbumData(page=1, areaid="", catid="123") {
   console.log("fetchAlbumData");
   let url_request = {
     method: 'POST',

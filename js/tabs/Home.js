@@ -12,6 +12,7 @@ import SectionHeaderView from '../common/SectionHeaderView';
 import MerchantDetailCell from '../Cell/MerchantDetailCell';
 import AlbumCell from '../Cell/AlbumCell';
 import ActivityCell from '../Cell/ActivityCell';
+import ActivityDetailView from '../detail/ActivityDetailView';
 
 import {fetchHomeData} from '../actions/home';
 
@@ -94,6 +95,7 @@ class Home extends Component {
     })
   }
   _renderActivityRow = (rowData) => {
+    const {navigator} = this.props;
     return (
       <ActivityCell
         style={{}}
@@ -102,7 +104,7 @@ class Home extends Component {
         title={rowData.title}
         shopname={rowData.shopname}
         shopId={rowData.shopid}
-        onPress={(shopid)=>{alert(shopid)}}
+        onPress={(shopid)=>navigator.push({component: ActivityDetailView})}
         />
     );
   }

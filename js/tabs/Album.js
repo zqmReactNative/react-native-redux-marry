@@ -10,6 +10,7 @@ import NavigatorHeader from '../common/NavigatorHeader';
 import FilterHeaderView from '../views/FilterHeaderView';
 import SplitView from '../common/SplitView';
 import AlbumCell from '../Cell/AlbumCell';
+import Checker from '../common/Checker';
 
 import { fetchAlbumData } from '../actions/album';
 
@@ -99,6 +100,34 @@ class Album extends Component {
   render() {
     console.log("render Album");
     const {album} = this.props;
+    var contentView;
+
+    if (album.isError) {
+      contentView = <Checker state={0}/>
+    }
+    else if (album.isChangedOption) {
+      contentView = <Checker state={-1}/>
+    }
+    else if (album.list.length === 0) {
+      contentView = <Checker state={-2}/>
+    }
+    else {
+      contentView =
+      <ListView
+        style={{position: 'absolute', top: 64+40, bottom: 0, left: 0, right: 0,}}
+        contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
+        enableEmptySections = {true}
+        dataSource={this.dataSource.cloneWithRows(album.list)}
+        renderRow={this._renderRow}
+        refreshControl={
+          <RefreshControl
+            refreshing = {album.isRefreshing}
+            onRefresh={this._onRefresh}
+            tintColor='red'
+          />
+        }
+        />
+    }
     return (
       <View style={styles.container}>
         <NavigatorHeader leftBarButtonItem={()=>(<Text numberOfLines={1} style={{textAlign:"center", alignItems:"center"}}>武汉</Text>)} title={"图库"}/>
@@ -106,20 +135,7 @@ class Album extends Component {
           leftButtonTitle={categories.defaultTitle}
           rightButtonTitle={sortBys.defaultTitle}
           />
-        <ListView
-          style={{position: 'absolute', top: 64+40, bottom: 0, left: 0, right: 0,}}
-          contentContainerStyle={{justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap'}}
-          enableEmptySections = {true}
-          dataSource={this.dataSource.cloneWithRows(album.list)}
-          renderRow={this._renderRow}
-          refreshControl={
-            <RefreshControl
-              refreshing = {album.isRefreshing}
-              onRefresh={this._onRefresh}
-              tintColor='red'
-            />
-          }
-          />
+        {contentView}
       </View>
     );
   }
