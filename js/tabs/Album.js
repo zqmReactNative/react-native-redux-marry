@@ -2,7 +2,7 @@
 // 图库
 
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
+import { InteractionManager, View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
 import { connect } from 'react-redux';
 
 import FaceIcon from '../svg/FaceIcon';
@@ -48,8 +48,7 @@ class Album extends Component {
     this.state = {
       isShowFilterView: false,
       isRefreshing: true,
-      // dataSource: ds.cloneWithRows([{}, {}]),
-      // transitionFromLeft
+      renderPlaceholderOnly: true,
       fadeAnim: new Animated.Value(-screenWidth), // init opacity 0
       transitionFromRight: new Animated.Value(-screenWidth),
     };
@@ -57,7 +56,10 @@ class Album extends Component {
   }
 
   componentDidMount() {
-    this._onRefresh();
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+      this._onRefresh();
+    });
   }
 
   _onRefresh = ()=>{

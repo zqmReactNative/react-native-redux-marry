@@ -2,7 +2,7 @@
 // 商家
 
 import React, { Component, PropTypes } from 'react';
-import { View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
+import { InteractionManager, View, StyleSheet, Text, ListView, RefreshControl, Dimensions, TouchableOpacity, TouchableHighlight, Animated, Easing } from 'react-native';
 import { connect } from 'react-redux';
 
 import FaceIcon from '../svg/FaceIcon';
@@ -59,14 +59,10 @@ class Merchant extends Component {
     this.dataSource = ds;
   }
   componentDidMount() {
-    // Animated.timing(       // Uses easing functions
-    //   this.state.fadeAnim, // The value to drive
-    //   {
-    //     toValue: 0,        // Target
-    //     duration: 2000,    // Configuration
-    //   },
-    // ).start();             // Don't forget start!
-    this._onRefresh();
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+      this._onRefresh();
+    });
   }
 
   _onRefresh = ()=>{
