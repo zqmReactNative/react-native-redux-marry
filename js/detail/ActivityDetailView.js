@@ -19,8 +19,24 @@ export default class ActivityDetailView extends Component {
   }
   _renderHeader = () => {
     return (
-      <View>
-        <Img />
+      <View style={styles.header}>
+        <Img style={styles.image}/>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <Text>
+            订婚宴，返200现金！
+          </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Image style={{width: 20, height: 20}}/>
+            <Text>
+              活动时间：2016.01.13-2016.12.31
+            </Text>
+          </View>
+          <TouchableOpacity>
+            <Text>
+              进店看看
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -50,11 +66,23 @@ export default class ActivityDetailView extends Component {
     );
   }
 }
-
+const kScale = screenWidth / 375;
+const kImageH = kScale * 230;
+const kImageW = screenWidth;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  header: {
+    // height: 410,
+    // width: screenWidth,
+    // flex: 1,
+    backgroundColor: 'red',
+  },
+  image: {
+    height: kImageH,
+    width: kImageW,
   },
 
 })
